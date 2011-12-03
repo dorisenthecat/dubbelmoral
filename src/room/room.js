@@ -26,6 +26,7 @@ var Room = exports.Room = function() {
     this.positionOnMap = [0, 0];
     this.updateables = new gamejs.sprite.Group();
     this.drawables = new gamejs.sprite.Group();
+	this.ladders = new gamejs.sprite.Group();
     return this;
 };
 

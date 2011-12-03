@@ -1,6 +1,7 @@
 var gamejs = require('gamejs');
 var room = require('./room');
 var beer = require('../sprite/beer');
+var ladder = require('../sprite/ladder');
 
 gamejs.preload(["images/nilen.png"]);
 
@@ -24,6 +25,9 @@ var Nilen = exports.Nilen = function() {
 		
 		this.drawables.add(bottle);
 	}
+	
+	//Add ladder to the tree
+	this.ladders.add(new ladder.Ladder(new gamejs.Rect([215,88], [12,95])));
 	    
     this.backgroundImage = gamejs.image.load("images/nilen.png"); // todo: load once, not per object
     
