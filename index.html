@@ -8,9 +8,56 @@
     require.setModuleRoot('./src/');
     require.run('dubbelmoral')
   </script>
+  
+  <style>
+	BODY 
+	{
+		background-color: lightblue;
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	#menu 
+	{
+		font-family: sans-serif;
+		font-weight: bold;
+		background-color: white;
+		height: 20px;
+		padding: 0px;
+		margin-bottom: 5px;
+		border-bottom: 1px solid black;
+	}
+	
+	.menu-item 
+	{
+		margin: 0px;
+		display: inline-block;
+		font-size: 12px;
+		padding: 4px 10px 2px; 10px;
+	}
+	
+	.menu-item:hover {
+		cursor: pointer;
+		background-color: black;
+		color: white;
+	}
+  </style>
+  
 </head>
 <!-- Html -->
 <body>
+	<div id="menu">
+		<span class="menu-item">
+			0
+		</span><span class="menu-item">
+			Arkiv
+		</span><span class="menu-item">
+			Redigera
+		</span><span class="menu-item">
+			Special
+		</span>
+	</div>
+	
     <div>
         <div id="gjs-loader">
          Loading...
