@@ -1,4 +1,5 @@
 var gamejs = require('gamejs');
+var basesprite = require('./basesprite');
 
 gamejs.preload(["images/beer.png"]);  //TODO: Should load from sprites.png?
 
@@ -16,4 +17,4 @@ Beer.prototype.update = function(msduration) {
   
 };
 
-gamejs.utils.objects.extend(Beer, gamejs.sprite.Sprite);
+gamejs.utils.objects.extend(Beer, basesprite.BaseSprite);
