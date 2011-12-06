@@ -2,6 +2,7 @@ var gamejs = require('gamejs');
 var room = require('./room');
 var beer = require('../sprite/beer');
 var ladder = require('../sprite/ladder');
+var urinal = require("../sprite/urinal");
 
 gamejs.preload(["images/nilen.png"]);
 
