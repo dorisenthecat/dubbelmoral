@@ -1,6 +1,7 @@
 var gamejs = require('gamejs');
 
 var nilen = require('./room/nilen');
+var Map = require("./map").Map;
 
 /*
  * Game
@@ -16,19 +17,18 @@ var nilen = require('./room/nilen');
  *  map (Map)
  */
 
-gamejs.preload(["images/map.png"]);
 gamejs.preload(["images/hemma.png"]);
 
 function main() {
     var display = gamejs.display.setMode([326, 185]);
-    var currentRoom = new nilen.Nilen();
-    
     var mapDisplay = gamejs.display.setMode([148,299], "map");
-    mapDisplay.blit(gamejs.image.load("images/map.png"));
-    
     var hemmaDisplay = gamejs.display.setMode([326, 64], "hemma");
-    hemmaDisplay.blit(gamejs.image.load("images/hemma.png"));
     
+    var currentRoom = new nilen.Nilen();
+    var map = new Map();
+    
+    hemmaDisplay.blit(gamejs.image.load("images/hemma.png"));
+    map.draw(mapDisplay);
     currentRoom.draw(display);
 };
 
