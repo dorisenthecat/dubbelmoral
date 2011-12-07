@@ -23,7 +23,7 @@ gamejs.preload(["images/hemma.png"]);
 
 function main() {
     var display = gamejs.display.setMode([326, 185]);
-    var mapDisplay = gamejs.display.setMode([148,299], "map");
+    var mapDisplay = gamejs.display.setMode([148,298], "map");
     var hemmaDisplay = gamejs.display.setMode([326, 64], "hemma");
     
     var currentRoom = new nilen.Nilen();
