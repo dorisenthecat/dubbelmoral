@@ -28,18 +28,17 @@ function main() {
     
     var currentRoom = new nilen.Nilen();
     var map = new Map();
+
+    var tick = function(msduration) {
+	 currentRoom.update(msduration);
+	 map.update(msduration);
+	 
+	 hemmaDisplay.blit(gamejs.image.load("images/hemma.png"));
+	 map.draw(mapDisplay);
+	 currentRoom.draw(display);
+    };
     
-    hemmaDisplay.blit(gamejs.image.load("images/hemma.png"));
-    map.draw(mapDisplay);
-    currentRoom.draw(display);
-    
-    var anim = new animation.Animation();
-    var fr = new animation.AnimationFrame();
-    fr.ticks = 2;
-    anim.frames.push(fr);
-    var cursor = anim.start(this, function () { console.log("animation completed"); });
-    this.updateAnimation();
-    cursor.updateAnimation();
+    gamejs.time.fpsCallback(tick, this, 10);
 };
 
 gamejs.ready(function() {

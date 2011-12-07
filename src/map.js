@@ -1,4 +1,5 @@
 var gamejs = require("gamejs");
+var animation = require("./animation");
 
 /*
  * Map
@@ -12,17 +13,38 @@ var gamejs = require("gamejs");
  */
 
 gamejs.preload(["images/map.png"]);
+gamejs.preload(["images/scoremeter.png"]);
+gamejs.preload(["images/roomposition.png"]);
 
 var Map = exports.Map = function() {
     this.image = gamejs.image.load("images/map.png");
+    this.crossImage = gamejs.image.load("images/roomposition.png");
+    this.showCross = true;
+    this.roomPosition = [130, 50]; //TODO: this should be set from Game
+    
+    var crossAnimation = new animation.Animation();
+    var frame = new animation.AnimationFrame();
+    frame.ticks = 5;
+    frame.begin = function (map) {
+	 map.showCross = !map.showCross; 
+    };
+    crossAnimation.frames.push(frame);
+    var self = this;
+    crossAnimation.start(self, function() { self.restartAnimation(); });
+    
+    return this;
 };
 
 Map.prototype.draw = function(surface) {
     surface.blit(this.image);
-    // TODO: draw room position
+    if (this.showCross) {
+	 surface.blit(this.crossImage, this.roomPosition);
+    }
     // TODO: draw scores
 };
 
 Map.prototype.update = function(msduration) {
-    // TODO: update blinking room position animation
+    if (this.updateAnimation) {
+	 this.updateAnimation();
+    }
 };
