@@ -4,69 +4,114 @@
   <title>Dubbelmoral!</title>
   <script src="./libs/yabble.js"></script>
   <script src="./libs/gamejs-wrapped.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <script>
     require.setModuleRoot('./src/');
     require.run('dubbelmoral')
+    
+    function activateWindow(windowName) {
+      //Deacivate all windows
+      $(".window-frame").css("background-image", "none");
+      
+      //Activate current window
+      $("#"+ windowName +"-window .window-frame").css("background-image", "url('images/window-frame.png')");
+    }
+    
+    $(function(){
+      $(".window").height($("canvas", $(this)).height + 10);
+    });
   </script>
   
   <style>
-	BODY 
-	{
-		background-image: url("images/desktop.png");
-		margin: 0px;
-		padding: 0px;
-	}
-	
-	#menu 
-	{
-		font-family: sans-serif;
-		font-weight: bold;
-		background-color: white;
-		height: 20px;
-		padding: 0px;
-		margin-bottom: 5px;
-		border-bottom: 1px solid black;
-	}
-	
-	.menu-item 
-	{
-		margin: 0px;
-		display: inline-block;
-		font-size: 12px;
-		padding: 4px 10px 2px; 10px;
-	}
-	
-	.menu-item:hover {
-		cursor: pointer;
-		background-color: black;
-		color: white;
-	}
+    BODY 
+    {
+        background-image: url("images/desktop.png");
+        margin: 0px;
+        padding: 0px;
+    }
+    
+    #menu 
+    {
+        font-family: sans-serif;
+        font-weight: bold;
+        background-color: white;
+        height: 20px;
+        padding: 0px;
+        margin-bottom: 5px;
+        border-bottom: 1px solid black;
+    }
+    
+    .window 
+    {
+      display: inline-block;
+      background-color: white;
+      border: 1px solid black;
+    }
+    
+    .window canvas {
+      padding: 0px;
+      margin: 0px;
+    }
+    
+    .window-frame 
+    {
+      background-color: white;
+      height: 7px;
+      background-color: white;
+      border-bottom: 1px solid black;
+      padding-left: 1px;
+      padding-right: 1px;
+      background-clip:content-box;
+    }
+    
+    .menu-item 
+    {
+        margin: 0px;
+        display: inline-block;
+        font-size: 12px;
+        padding: 4px 10px 2px; 10px;
+    }
+    
+    .menu-item:hover {
+        cursor: pointer;
+        background-color: black;
+        color: white;
+    }
   </style>
   
 </head>
 <!-- Html -->
 <body>
-	<div id="menu">
-		<span class="menu-item">
-			<img src="images/apple.png">
-		</span><span class="menu-item">
-			Arkiv
-		</span><span class="menu-item">
-			Redigera
-		</span><span class="menu-item">
-			Special
-		</span>
-	</div>
-	
+    <div id="menu">
+        <span class="menu-item">
+            <img src="images/apple.png">
+        </span><span class="menu-item">
+            Arkiv
+        </span><span class="menu-item">
+            Redigera
+        </span><span class="menu-item">
+            Special
+        </span>
+    </div>
+    
     <div>
-        <div id="gjs-loader">
-         Loading...
-        </div>
-	 <center>
-	   <canvas id="map"></canvas>
-            <canvas id="gjs-canvas"></canvas>
-	     <canvas id="hemma"></canvas>
-	 </center>
+      <div id="gjs-loader">
+           Loading...
+      </div>
+             
+      <div class="window" style="height: 307px" id="map-window" onclick="activateWindow('map');">
+        <div class="window-frame"></div>
+        <canvas id="map"></canvas>
+      </div>
+      
+      <div class="window" style="height: 193px" id="main-window" onclick="activateWindow('main');">
+        <div class="window-frame"></div>
+        <canvas id="gjs-canvas"></canvas></div>
+      
+      <div class="window" style="height: 72px" id="hemma-window" onclick="activateWindow('hemma');">
+        <div class="window-frame"></div>
+        <canvas id="hemma"></canvas>
+      </div>
     </div>
 </body>
 </html>
