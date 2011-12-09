@@ -1,0 +1,28 @@
+.window 
+{
+  display: inline-block;
+  background-color: white;
+  border: 1px solid black;
+}
+
+.window canvas {
+  padding: 0px;
+  margin: 0px;
+}
+
+.window-frame 
+{
+  background-color: white;
+  height: 7px;
+  background-color: white;
+  border-bottom: 1px solid black;
+  padding-left: 1px;
+  padding-right: 1px;
+  background-clip:content-box;
+}
+
+.moving-window-placeholder 
+{
+  border: 1px dotted black;
+  position: absolute;
+}

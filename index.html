@@ -8,6 +8,7 @@
   <script src="menu.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
   <link rel="stylesheet" href="menu.css">
+  <link rel="stylesheet" href="window.css">
   <script>
     require.setModuleRoot('./src/');
     require.run('dubbelmoral')
@@ -46,35 +47,6 @@
         margin: 0px;
         padding: 0px;
         height: 100%;
-    }
-    
-    .window 
-    {
-      display: inline-block;
-      background-color: white;
-      border: 1px solid black;
-    }
-    
-    .window canvas {
-      padding: 0px;
-      margin: 0px;
-    }
-    
-    .window-frame 
-    {
-      background-color: white;
-      height: 7px;
-      background-color: white;
-      border-bottom: 1px solid black;
-      padding-left: 1px;
-      padding-right: 1px;
-      background-clip:content-box;
-    }
-    
-    .moving-window-placeholder 
-    {
-      border: 1px dotted black;
-      position: absolute;
     }
   </style>
   
