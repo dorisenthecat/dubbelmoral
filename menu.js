@@ -1,7 +1,21 @@
 var menu = [];
-menu["Arkiv"] = ["Ny spelomg&aring;ng", "Demo", "---", "Avsluta"];
-menu["Redigera"] = ["&Aring;ngra", "---", "Klipp ut", "Kopiera", "Klistra in", "Rensa", "Markera allt"];
-menu["Special"] = ["Visa hajsk&aring;r...", "---", "Ljud", "---", "G&aring; till karnevalen"];
+
+function initMenu($parent, menuItems) {
+  menu = menuItems;
+  
+  var $menu = $("<div id='menu'/>");
+  
+  //Apple
+  $menu.append("<span class='menu-item'><img src='images/apple.png'></span>");
+  $parent.prepend($menu);
+  
+  //Menu items
+  for(item in menu) {
+    var $item = $("<span class='menu-item' id='menu-"+ item +"' onmousedown='showMenu(\""+ item +"\");'/>");
+    $item.append(item);
+    $menu.append($item);
+  }  
+}
 
 function showMenu(currentMenu) {
   $("body").append("<div class='dropDownMenu'></div>");

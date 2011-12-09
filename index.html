@@ -7,12 +7,20 @@
   <script src="window.js"></script>
   <script src="menu.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="menu.css">
   <script>
     require.setModuleRoot('./src/');
     require.run('dubbelmoral')
     
     $(function(){
       $(".window").height($("canvas", $(this)).height + 10);
+      
+      var menu = {
+        "Arkiv": ["Ny spelomg&aring;ng", "Demo", "---", "Avsluta"],
+        "Redigera": ["&Aring;ngra", "---", "Klipp ut", "Kopiera", "Klistra in", "Rensa", "Markera allt"],
+        "Special": ["Visa hajsk&aring;r...", "---", "Ljud", "---", "G&aring; till karnevalen"]
+      }
+      initMenu($("body"), menu);
     });
   </script>
   
@@ -68,79 +76,12 @@
       border: 1px dotted black;
       position: absolute;
     }
-    
-    #menu 
-    {
-        font-weight: bold;
-        background-color: white;
-        height: 20px;
-        padding: 0px;
-        margin: 0px;
-        border-bottom: 1px solid black;
-        overflow: hidden;
-    }
-    
-    .menu-item 
-    {
-        margin: 0px;
-        display: inline-block;
-        font-size: 12px;
-        padding: 4px 10px;
-        vertical-align: top;
-    }
-    
-    .menu-item:hover 
-    {
-        background-color: black;
-        color: white;
-    }
-    
-    .menu-separator 
-    {
-      border-top: 1px dotted black;
-      margin-top: 7px;
-      margin-bottom: 7px;
-    }
-    
-    .dropDownMenu LI 
-    {
-      list-style-type: none;
-      padding: 0px 15px;
-      height: 15px;
-    }
-    
-    .dropDownMenu LI:hover
-    {
-      background-color: black;
-      color: white;
-    }
-    
-    .dropDownMenu {
-      font-size: 12px;
-      font-weight: bold;
-      position: absolute;
-      background-color: white;
-      border: 1px solid black;
-      box-shadow: 1px 1px 0 0 black;
-    }
   </style>
   
 </head>
 <!-- Html -->
 <body onmouseup="stopDragWindow(); hideMenu();" onmousemove="dragWindow(event);">
-    <div id="menu">
-        <span class="menu-item">
-            <img src="images/apple.png">
-        </span><span class="menu-item" id="menu-Arkiv" onmousedown="showMenu('Arkiv');">
-            Arkiv
-        </span><span class="menu-item" id="menu-Redigera" onmousedown="showMenu('Redigera');">
-            Redigera
-        </span><span class="menu-item" id="menu-Special" onmousedown="showMenu('Special');">
-            Special
-        </span>
-    </div>
-    
-    <div>
+     <div>
       <div id="gjs-loader">
            Loading...
       </div>

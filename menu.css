@@ -1,0 +1,54 @@
+#menu 
+{
+    font-weight: bold;
+    background-color: white;
+    height: 20px;
+    padding: 0px;
+    margin: 0px;
+    border-bottom: 1px solid black;
+    overflow: hidden;
+}
+
+.menu-item 
+{
+    margin: 0px;
+    display: inline-block;
+    font-size: 12px;
+    padding: 4px 10px;
+    vertical-align: top;
+}
+
+.menu-item:hover 
+{
+    background-color: black;
+    color: white;
+}
+
+.menu-separator 
+{
+  border-top: 1px dotted black;
+  margin-top: 7px;
+  margin-bottom: 7px;
+}
+
+.dropDownMenu LI 
+{
+  list-style-type: none;
+  padding: 0px 15px;
+  height: 15px;
+}
+
+.dropDownMenu LI:hover
+{
+  background-color: black;
+  color: white;
+}
+
+.dropDownMenu {
+  font-size: 12px;
+  font-weight: bold;
+  position: absolute;
+  background-color: white;
+  border: 1px solid black;
+  box-shadow: 1px 1px 0 0 black;
+}
