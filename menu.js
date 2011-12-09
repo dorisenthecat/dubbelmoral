@@ -7,7 +7,7 @@ function showMenu(currentMenu) {
   $("body").append("<div class='dropDownMenu'></div>");
   $(".dropDownMenu").offset({
     "left": $("#menu-" + currentMenu).offset().left,
-    "top": $("#menu").offset().top + $("#menu").outerHeight()
+    "top": $("#menu").offset().top + $("#menu").height()
   });     
   
   for(var i=0; i<menu[currentMenu].length; i++) {
