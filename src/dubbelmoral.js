@@ -4,6 +4,7 @@ var nilen = require('./room/nilen');
 var Map = require("./map").Map;
 
 var animation = require("./animation");
+var Student = require("./sprite/student").Student;
 
 /*
  * Game
@@ -29,9 +30,13 @@ function main() {
     var currentRoom = new nilen.Nilen();
     var map = new Map();
 
+    var student = new Student([100,185-2]);
+    currentRoom.drawables.add(student);
+
     var tick = function(msduration) {
 	 currentRoom.update(msduration);
 	 map.update(msduration);
+	 student.update(msduration);
 	 
 	 hemmaDisplay.blit(gamejs.image.load("images/hemma.png"));
 	 map.draw(mapDisplay);
