@@ -42,6 +42,7 @@ function main() {
     var hemmaDisplay = gamejs.display.setMode([326, 64], "hemma");
     
 	var student = new Student([100,185-2]);
+    context.student = student;
 
 	var rooms = [];
 	rooms.push(new nilen.Nilen());
@@ -55,7 +56,38 @@ function main() {
 
 	switchToRoom(0);
 
+    var handleEvents = function(events) {
+	 events.forEach(
+	     function(event) {
+		  if (event.type === gamejs.event.KEY_DOWN) {
+		      if (event.key === gamejs.event.K_UP) {
+			   
+		      }
+		      if (event.key === gamejs.event.K_LEFT) {
+			   student.left();
+		      }
+		      if (event.key === gamejs.event.K_RIGHT) {
+			   student.right();
+		      }
+		      if (event.key === gamejs.event.K_SPACE) {
+		      }
+		  }
+		  if (event.type === gamejs.event.KEY_UP) {
+		      if ((event.key === gamejs.event.K_LEFT) ||
+			   (event.key === gamejs.event.K_RIGHT)) {
+			   student.stop();
+		      }
+		  };
+		  if (event.type === gamejs.event.MOUSE_DOWN) {
+		      console.log("mose down at (" + event.pos[0] + ", " + event.pos[1] + ")");
+		  }
+	     });
+    };
+    
     var tick = function(msduration) {
+	 var events = gamejs.event.get();
+	 handleEvents(events);
+
 	 currentRoom.update(msduration, context);
 	 map.update(msduration);
 	 student.update(msduration);

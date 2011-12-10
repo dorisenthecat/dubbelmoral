@@ -34,7 +34,6 @@ var Student = exports.Student = function() {
 	     ]
 	 }
     );
-
     
     var walkRightAnimation = new animatedsprite.SpriteAnimation(
 	 {
@@ -47,11 +46,26 @@ var Student = exports.Student = function() {
 	 }
     );
     
-    var self = this;
-    walkLeftAnimation.start(this, function(anim) {
-				 self.restartAnimation();
-			    });
+    var standRightAnimation = new animatedsprite.SpriteAnimation(
+	 {
+	     frames: [
+		  {ticks: 1, image: "images/student/student_stand_right.png"}
+		  ]
+	 }
+    );
+    
+    this.startAnimation(standRightAnimation, true);
 
+    this.left = function() {
+	 this.startAnimation(walkLeftAnimation, true);
+    };
+    this.right = function() {
+	 this.startAnimation(walkRightAnimation, true);
+    };
+    this.stop = function() {
+	 this.startAnimation(standRightAnimation, false);
+    };
+    
     this.updateRect();
 
     return this;

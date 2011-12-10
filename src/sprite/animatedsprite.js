@@ -36,6 +36,8 @@ var SpriteAnimation = exports.SpriteAnimation = function(defintion) {
 	 this.frames.push(frame);
     }
     
+    this.direction = defintion.direction = defintion.direction || DIR_RIGHT;
+    
     return this;
 };
 gamejs.utils.objects.extend(SpriteAnimation, animation.Animation);
@@ -97,5 +99,16 @@ AnimatedSprite.prototype.update = function(msduration) {
 	 this.position[0] += this.vx;
 	 this.position[1] += this.vy;
 	 this.updateRect();
+    }
+};
+
+AnimatedSprite.prototype.startAnimation = function(animation, loop) {
+    //    if (animation.loop
+    if (this.runningAnimation !== animation) {
+	 this.runningAnimation = animation;
+	 var self = this;
+	 animation.start(this, function(sprite) {
+				self.restartAnimation();
+			   });
     }
 };

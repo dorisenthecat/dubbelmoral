@@ -42,6 +42,8 @@ Room.prototype.draw = function(surface) {
 	 surface.fill("purple");
     }
     this.drawables.draw.apply(this.drawables, arguments);
+    this.ladders.draw.apply(this.ladders, arguments);
+    this.platforms.draw.apply(this.platforms, arguments);
 };
 
 Room.prototype.update = function(msduration) {

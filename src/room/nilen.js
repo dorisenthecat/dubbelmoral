@@ -27,7 +27,11 @@ Nilen.prototype.init = function() {
 	
 	this.drawables.add(b);
 	this.updateables.add(b);
-	
+    
+    var u = new urinal.Urinal(new gamejs.Rect([113,164,10,20]));
+    this.drawables.add(u);
+    this.activateables.add(u);
+
 	//Add beer bottles
 	var numberOfBeer = Math.floor(Math.random()*MAX_BOTTLES+1);
 	for(var i=0; i<numberOfBeer; i++) {
