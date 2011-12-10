@@ -7,6 +7,7 @@ var Akademiska = exports.Akademiska = function() {
 	Akademiska.superConstructor.apply(this, arguments);
 
     this.backgroundImage = gamejs.image.load("images/akademiska.png"); // todo: load once, not per object
+    this.positionOnMap = [125, 62];
 
     return this;
 };

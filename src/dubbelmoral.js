@@ -89,7 +89,7 @@ function main() {
 	 handleEvents(events);
 
 	 currentRoom.update(msduration, context);
-	 map.update(msduration);
+	 map.update(msduration, currentRoom);
 	 student.update(msduration);
 	 
 	 hemmaDisplay.blit(gamejs.image.load("images/hemma.png"));

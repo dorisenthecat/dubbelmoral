@@ -15,6 +15,7 @@ var Fontanen = exports.Fontanen = function() {
   Fontanen.superConstructor.apply(this, arguments);
 
   this.backgroundImage = gamejs.image.load("images/fontanen.png"); // todo: load once, not per object
+  this.positionOnMap = [100, 46];
   
   return this;
 };

@@ -15,6 +15,7 @@ var Nilen = exports.Nilen = function() {
     Nilen.superConstructor.apply(this, arguments);
 
     this.backgroundImage = gamejs.image.load("images/nilen.png"); // todo: load once, not per object
+    this.positionOnMap = [95, 82];
 
     return this;
 };

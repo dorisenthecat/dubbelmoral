@@ -20,13 +20,13 @@ var Map = exports.Map = function() {
     this.image = gamejs.image.load("images/map.png");
     this.crossImage = gamejs.image.load("images/roomposition.png");
     this.showCross = true;
-    this.roomPosition = [130, 50]; //TODO: this should be set from Game
+    this.roomPosition = new gamejs.Rect([0,0], [5,5]);
     
     var crossAnimation = new animation.Animation();
     var frame = new animation.AnimationFrame();
     frame.ticks = 5;
     frame.begin = function (map) {
-	 map.showCross = !map.showCross; 
+      map.showCross = !map.showCross; 
     };
     crossAnimation.frames.push(frame);
     var self = this;
@@ -38,13 +38,14 @@ var Map = exports.Map = function() {
 Map.prototype.draw = function(surface) {
     surface.blit(this.image);
     if (this.showCross) {
-	 surface.blit(this.crossImage, this.roomPosition);
+      surface.blit(this.crossImage, this.roomPosition);
     }
     // TODO: draw scores
 };
 
-Map.prototype.update = function(msduration) {
+Map.prototype.update = function(msduration, currentRoom) {
     if (this.updateAnimation) {
-	 this.updateAnimation();
+      this.updateAnimation();
     }
+    this.roomPosition = currentRoom.positionOnMap;
 };
