@@ -15,27 +15,44 @@ var animatedsprite = require("./animatedsprite");
 gamejs.preload(["images/student/student_stand_right.png"]);
 gamejs.preload(["images/student/student_walk_right_1.png"]);
 gamejs.preload(["images/student/student_walk_right_2.png"]);
+gamejs.preload(["images/student/student_stand_left.png"]);
+gamejs.preload(["images/student/student_walk_left_1.png"]);
+gamejs.preload(["images/student/student_walk_left_2.png"]);
 
 var Student = exports.Student = function() {
     Student.superConstructor.apply(this, arguments);
 
 //    this.shouldMoveSprite = false;
-    
-    var standAnimation = new animatedsprite.SpriteAnimation(
+
+    var walkLeftAnimation = new animatedsprite.SpriteAnimation(
 	 {
 	     frames: [
-		  {ticks: 5, image: "images/student/student_stand_right.png", vx: 0},
-		  {ticks: 5, image: "images/student/student_walk_right_1.png", vx: 5},
-		  {ticks: 5, image: "images/student/student_stand_right.png", vx: 5},
-		  {ticks: 5, image: "images/student/student_walk_right_2.png", vx: 5}
+		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -7},
+		  {ticks: 2, image: "images/student/student_walk_left_1.png", vx: -7},
+		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -7},
+		  {ticks: 2, image: "images/student/student_walk_left_2.png", vx: -7}
+	     ]
+	 }
+    );
+
+    
+    var walkRightAnimation = new animatedsprite.SpriteAnimation(
+	 {
+	     frames: [
+		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 7},
+		  {ticks: 2, image: "images/student/student_walk_right_1.png", vx: 7},
+		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 7},
+		  {ticks: 2, image: "images/student/student_walk_right_2.png", vx: 7}
 	     ]
 	 }
     );
     
     var self = this;
-    standAnimation.start(this, function(anim) {
+    walkLeftAnimation.start(this, function(anim) {
 				 self.restartAnimation();
 			    });
+
+    this.updateRect();
 
     return this;
 };

@@ -1,5 +1,7 @@
 var gamejs = require('gamejs');
 
+var portal = require("../sprite/portal");
+
 /*
  * Room class
  * 
@@ -24,9 +26,12 @@ var gamejs = require('gamejs');
 var Room = exports.Room = function() {
     this.backgroundImage = null;
     this.positionOnMap = [0, 0];
-    this.updateables = new gamejs.sprite.Group();
+    this.updateables = this.updatables = new gamejs.sprite.Group();
     this.drawables = new gamejs.sprite.Group();
-	this.ladders = new gamejs.sprite.Group();
+    this.ladders = new gamejs.sprite.Group();
+    this.platforms = new gamejs.sprite.Group();
+    this.activateables = this.activatables = new gamejs.sprite.Group();
+    this.portalwalkers = new gamejs.sprite.Group();
     return this;
 };
 
@@ -41,4 +46,15 @@ Room.prototype.draw = function(surface) {
 
 Room.prototype.update = function(msduration) {
     this.updateables.update.apply(this.updateables, arguments);
+};
+
+Room.prototype.init = function() {
+    this.updateables.empty();
+    this.drawables.empty();
+    this.ladders.empty();
+    this.platforms.empty();
+    this.updateables.empty();
+    this.portalwalkers.empty();
+    
+    portal.createPortals(this);    
 };

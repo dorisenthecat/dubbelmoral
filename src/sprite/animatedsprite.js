@@ -27,7 +27,7 @@ var SpriteAnimation = exports.SpriteAnimation = function(defintion) {
 	 if (framedef.vx) {
 	     frame.vx = framedef.vx;
 	 }
-	 if (frame.vy) {
+	 if (framedef.vy) {
 	     frame.vy = framedef.vy;
 	 }
 	 if (framedef.ticks) {
@@ -47,8 +47,6 @@ var SpriteAnimationFrame = exports.SpriteAnimationFrame = function() {
     this.vx = 0;
     this.vy = 0;
     this.ticks = 10;
-    
-    console.log("constructing");
 
     return this;
 };
@@ -58,7 +56,6 @@ SpriteAnimationFrame.prototype.begin = function(sprite) {
     sprite.image = this.image;
     sprite.vx += this.vx;
     sprite.vy += this.vy;
-    console.log("starting animated srpite frame");
 };
 
 var AnimatedSprite = exports.AnimatedSprite = function(pos) {
@@ -83,6 +80,11 @@ AnimatedSprite.prototype.updateRect = function() {
     this.rect.left = this.position[0] - Math.ceil(this.rect.width/2);
 };
 
+AnimatedSprite.prototype.updatePosition = function() {
+   this.position[0] = this.rect.center[0];
+   this.position[1] = this.rect.bottom;
+};
+
 AnimatedSprite.prototype.update = function(msduration) {
     AnimatedSprite.superClass.update.apply(this, arguments);
     this.vx = 0;
@@ -90,7 +92,6 @@ AnimatedSprite.prototype.update = function(msduration) {
     if (this.updateAnimation) {
 	 this.updateAnimation();
     }
-    //recalc rect
     
     if (this.shouldMoveSprite) {
 	 this.position[0] += this.vx;
