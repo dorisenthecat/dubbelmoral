@@ -23,7 +23,7 @@ gamejs.utils.objects.extend(Nilen, room.Room);
 Nilen.prototype.init = function() {
     Nilen.superClass.init.apply(this, arguments);
     
-    var b = new branch.Branch([100,50]);
+    var b = new branch.Branch([100,50], [0,295]);
     
     this.drawables.add(b);
     this.updateables.add(b);

@@ -5,22 +5,28 @@ gamejs.preload(["images/branch/branch_right_1.png"]);
 gamejs.preload(["images/branch/branch_right_2.png"]);
 gamejs.preload(["images/branch/branch_right_3.png"]);
 
-var Branch = exports.Branch = function() {
+var Branch = exports.Branch = function(rect, dropArea) {
     Branch.superConstructor.apply(this, arguments);
-    var standAnimation = new spriteanimation.SpriteAnimation(
+    
+    this.dropArea = dropArea;
+    
+    var fallAnimation = new spriteanimation.SpriteAnimation(
       {
         frames: [
-        {ticks: 1, image: "images/branch/branch_right_1.png", vy: 5},
-        {ticks: 1, image: "images/branch/branch_right_2.png", vy: 5},
-        {ticks: 1, image: "images/branch/branch_right_3.png", vy: 5},   
+          {ticks: 1, image: "images/branch/branch_right_1.png", vy: 12},
+          {ticks: 1, image: "images/branch/branch_right_2.png", vy: 12},
+          {ticks: 1, image: "images/branch/branch_right_3.png", vy: 12},   
         ]
       }
     );
     
     var self = this;
-    standAnimation.start(this, function(anim) {
+    fallAnimation.start(this, function(anim) {
       self.restartAnimation();
     });
+    
+    this.drop();
+    
     return this;
 };
 gamejs.utils.objects.extend(Branch, spriteanimation.AnimatedSprite);
@@ -36,9 +42,15 @@ Branch.prototype.update = function(msduration, context) {
        //TODO: set animation
     }
 
-    if(this.rect.top > 185 || hitStudent) {
-      this.rect.bottom = 0;
-      this.updatePosition();
+    if(this.rect.top > 185) {
+      this.drop();
     }
     
 };
+
+Branch.prototype.drop = function() {
+  var dropAreaWidth = this.dropArea[1] - this.dropArea[0];
+  this.rect.left = Math.floor(Math.random()*dropAreaWidth) + this.dropArea[0];
+  this.rect.bottom = 0;
+  this.updatePosition();
+}
