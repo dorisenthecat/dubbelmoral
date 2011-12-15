@@ -70,11 +70,16 @@ function main() {
 			   student.right();
 		      }
 		      if (event.key === gamejs.event.K_SPACE) {
+			   student.activate();
+		      }
+		      if (event.key === gamejs.event.K_DOWN) {
+			   student.duck();
 		      }
 		  }
 		  if (event.type === gamejs.event.KEY_UP) {
 		      if ((event.key === gamejs.event.K_LEFT) ||
-			   (event.key === gamejs.event.K_RIGHT)) {
+			   (event.key === gamejs.event.K_RIGHT) ||
+			   (event.key === gamejs.event.K_DOWN)) {
 			   student.stop();
 		      }
 		  };
@@ -90,7 +95,7 @@ function main() {
 
 	 currentRoom.update(msduration, context);
 	 map.update(msduration, currentRoom);
-	 student.update(msduration);
+	 student.update(msduration, context);
 	 
 	 hemmaDisplay.blit(gamejs.image.load("images/hemma.png"));
 	 map.draw(mapDisplay);
@@ -105,6 +110,7 @@ function main() {
 			nextRoom.init();
 			nextRoom.drawables.add(student);
   		       nextRoom.portalwalkers.add(student);
+		    context.room = nextRoom;
 		}
 	};
 };

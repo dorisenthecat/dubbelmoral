@@ -9,6 +9,7 @@ var Branch = exports.Branch = function(rect, dropArea) {
     Branch.superConstructor.apply(this, arguments);
     
     this.dropArea = dropArea;
+    this.hitStudent = false;
     
     var fallAnimation = new spriteanimation.SpriteAnimation(
       {
@@ -34,12 +35,10 @@ gamejs.utils.objects.extend(Branch, spriteanimation.AnimatedSprite);
 Branch.prototype.update = function(msduration, context) {
     Branch.superClass.update.apply(this, arguments);
 
-    var hitStudent = false;
-    
     var self = this;
-    if (gamejs.sprite.collideRect(this, context.student)) {
-       hitStudent = true;
-       //TODO: set animation
+    if (!this.hitStudent && gamejs.sprite.collideRect(this, context.student)) {
+       this.hitStudent = true;
+       context.student.hit.apply(context.student);
     }
 
     if(this.rect.top > 185) {
@@ -53,4 +52,5 @@ Branch.prototype.drop = function() {
   this.rect.left = Math.floor(Math.random()*dropAreaWidth) + this.dropArea[0];
   this.rect.bottom = 0;
   this.updatePosition();
+  this.hitStudent = false;
 }

@@ -18,3 +18,14 @@ Beer.prototype.update = function(msduration) {
 };
 
 gamejs.utils.objects.extend(Beer, basesprite.BaseSprite);
+
+Beer.prototype.activateMe = function(context) {
+    //TODO check distance, direction u.s.w.
+    
+    context.student.drink.apply(context.student);
+    
+    context.room.activateables.remove(this);
+    context.room.drawables.remove(this);
+    
+    return true;
+};

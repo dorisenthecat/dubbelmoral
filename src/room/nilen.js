@@ -45,6 +45,7 @@ Nilen.prototype.init = function() {
       //TODO: Check if a bottle already exists in this position
       
       this.drawables.add(bottle);
+      this.activateables.add(bottle);
     }
     
     //Add ladder to the tree

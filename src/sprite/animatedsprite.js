@@ -42,6 +42,11 @@ var SpriteAnimation = exports.SpriteAnimation = function(defintion) {
 };
 gamejs.utils.objects.extend(SpriteAnimation, animation.Animation);
 
+SpriteAnimation.prototype.start = function() {
+    var sprite = SpriteAnimation.superClass.start.apply(this, arguments);
+    sprite.direction = this.direction;
+};
+
 var SpriteAnimationFrame = exports.SpriteAnimationFrame = function() {
     SpriteAnimationFrame.superConstructor.apply(this, arguments);
 
@@ -83,7 +88,7 @@ AnimatedSprite.prototype.updateRect = function() {
 };
 
 AnimatedSprite.prototype.updatePosition = function() {
-   this.position[0] = this.rect.center[0];
+   this.position[0] = Math.ceil(this.rect.center[0]);
    this.position[1] = this.rect.bottom;
 };
 
@@ -108,7 +113,9 @@ AnimatedSprite.prototype.startAnimation = function(animation, loop) {
 	 this.runningAnimation = animation;
 	 var self = this;
 	 animation.start(this, function(sprite) {
-				self.restartAnimation();
-			   });
+	     if (loop) {
+		  self.restartAnimation();
+	     }
+	 });
     }
 };
