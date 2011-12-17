@@ -55,7 +55,7 @@ Room.prototype.init = function() {
     this.drawables.empty();
     this.ladders.empty();
     this.platforms.empty();
-    this.updateables.empty();
+    this.activateables.empty();
     this.portalwalkers.empty();
     
     portal.createPortals(this);    
