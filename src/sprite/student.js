@@ -42,11 +42,18 @@ gamejs.preload(["images/student/student_trip_left_1.png"]);
 gamejs.preload(["images/student/student_trip_left_2.png"]);
 gamejs.preload(["images/student/student_trip_right_1.png"]);
 gamejs.preload(["images/student/student_trip_right_2.png"]);
+gamejs.preload(["images/student/student_fall_1.png"]);
+gamejs.preload(["images/student/student_fall_2.png"]);
+gamejs.preload(["images/student/student_land_1.png"]);
 
 var Student = exports.Student = function() {
     Student.superConstructor.apply(this, arguments);
 
 //    this.shouldMoveSprite = false;
+    
+    //state variables
+    this.falling = false;
+    this.shouldActivate = false;
 
     var walkLeftAnimation = new animatedsprite.SpriteAnimation(
 	 {
@@ -157,6 +164,17 @@ var Student = exports.Student = function() {
 	     {ticks: 4, image: "images/student/student_trip_right_2.png", vx: 7},
 	     {ticks: 1, image: "images/student/student_stand_right.png"}
 	 ]});
+
+    var fallAnimation = new animatedsprite.SpriteAnimation({
+	 frames: [
+	     {ticks: 2, image: "images/student/student_fall_1.png", vy: 7},
+	     {ticks: 2, image: "images/student/student_fall_2.png", vy: 7},
+	 ]});
+
+    var landAnimation = new animatedsprite.SpriteAnimation({
+	 frames: [
+	     {ticks: 4, image: "images/student/student_land_1.png"}
+	 ]});
     
     this.startAnimation(standRightAnimation, true);
 
@@ -203,8 +221,21 @@ var Student = exports.Student = function() {
 	     }
 //	 }
     };
+    this.fall = function() {
+	 if (this.position[1] >= 185-2) { // TODO: change this to floor level of room
+	     this.land(185-2);
+	 } else {
+	     this.falling = true;
+	     this.startAnimation(fallAnimation, true);
+	 }
+    };
+    this.land = function(floor) {
+	 this.falling = false;
+	 this.position[1] = floor;
+	 this.updateRect();
+	 this.startAnimation(landAnimation, false);
+    };
     
-    this.shouldActivate = false;
     this.updateRect();
 
     return this;
@@ -215,6 +246,26 @@ Student.prototype.update = function(msduration, context) {
     Student.superClass.update.apply(this, arguments);
     //fysik och knappar och drit
     
+    var self = this;
+    
+    this.climbing = false;
+    if (!this.climbing) {
+	 if (this.position[1] < 185-2 || this.falling) {
+	     if (!context.room.platforms.sprites().some(
+		  function (platform) {
+		      if (platform.rect.collideLine(self.position, [self.old_x, self.old_y])) {
+			   if (self.falling) {
+				self.land(platform.rect.top);
+			   }
+			   return true;
+		      }
+		      return false;
+		  })) {
+		  this.fall();
+	     }
+	 }
+    }
+
     if (this.shouldActivate) {
 	 if (context && context.room) {
 	     var done = false;
@@ -230,4 +281,5 @@ Student.prototype.update = function(msduration, context) {
     }
 
     this.shouldActivate = false;
+    self.updateRect();
 };

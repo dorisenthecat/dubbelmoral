@@ -1,5 +1,6 @@
 var gamejs = require('gamejs');
 var room = require('./room');
+var Platform = require('../sprite/platform').Platform;
 
 gamejs.preload(["images/akademiska.png"]);
 
@@ -15,4 +16,7 @@ gamejs.utils.objects.extend(Akademiska, room.Room);
 
 Akademiska.prototype.init = function() {
 	Akademiska.superClass.init.apply(this, arguments);
+    
+    var balcony = new Platform(new gamejs.Rect([219, 78, 90, 5]));
+    balcony.placeInRoom(this);
 };

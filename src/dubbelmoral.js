@@ -34,14 +34,17 @@ function main() {
 	 },
 	 switchRoomRight: function() {
 	     switchToRoom((rooms.indexOf(currentRoom) + 1) % rooms.length);
-	 }
+	 },
+	 student: null,
+	 score: null,
+	 room: null
     };
 
     var display = gamejs.display.setMode([326, 185]);
     var mapDisplay = gamejs.display.setMode([148,298], "map");
     var hemmaDisplay = gamejs.display.setMode([326, 64], "hemma");
     
-	var student = new Student([100,185-2]);
+	var student = new Student([240,28]);
     context.student = student;
 
 	var rooms = [];
@@ -54,7 +57,7 @@ function main() {
     var currentRoom;
     var map = new Map();
 
-	switchToRoom(0);
+	switchToRoom(2);
 
     var handleEvents = function(events) {
 	 events.forEach(

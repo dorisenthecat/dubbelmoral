@@ -71,6 +71,8 @@ var AnimatedSprite = exports.AnimatedSprite = function(pos) {
     
     this.vx = 0;
     this.vy = 0;
+    this.old_vx = 0;
+    this.old_vy = 0;
     this.direction = DIR_RIGHT;
     this.shouldMoveSprite = true;
 
@@ -96,6 +98,9 @@ AnimatedSprite.prototype.update = function(msduration) {
     AnimatedSprite.superClass.update.apply(this, arguments);
     this.vx = 0;
     this.vy = 0;
+    this.old_x = this.position[0];
+    this.old_y = this.position[1];
+
     if (this.updateAnimation) {
 	 this.updateAnimation();
     }
