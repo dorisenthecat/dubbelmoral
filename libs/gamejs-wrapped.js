@@ -19,6 +19,7 @@ var LOADER_ID = "gjs-loader";
 var SURFACE = {};
 
 /**
+ * @param {String} [id] id of the canvas dom element
  * @returns {document.Element} the canvas dom element
  */
 var getCanvas = function(id) {
@@ -60,6 +61,7 @@ exports.init = function() {
  * return the actual display Surface - the same as calling [gamejs.display.getSurface()](#getSurface))
  * later on.
  * @param {Array} dimensions [width, height] of the display surface
+ * @param {String} [id] id of the canvas dom element
  */
 exports.setMode = function(dimensions, id) {
    var canvasId = id || CANVAS_ID;
@@ -86,17 +88,19 @@ exports.setCaption = function(title, icon) {
  * @see {gamejs.event}
  * @ignore
  *
+ * @param {String} [id] id of the canvas dom element
  * @returns {Array} [x, y] offset of the canvas
  */
 
 exports._getCanvasOffset = function(id) {
    var canvasId = id || CANVAS_ID;
-   var boundRect = getCanvas().getBoundingClientRect();
+   var boundRect = getCanvas(canvasId).getBoundingClientRect();
    return [boundRect.left, boundRect.top];
 };
 
 /**
  * Drawing on the Surface returned by `getSurface()` will draw on the screen.
+ * @param {String} [id] id of the canvas dom element
  * @returns {gamejs.Surface} the display Surface
  */
 var getSurface = exports.getSurface = function(id) {
@@ -2292,7 +2296,11 @@ require.define({
  */
 
 exports.remove = function(item, array) {
-   return array.splice(array.indexOf(item), 1);
+   var index = array.indexOf(item);
+   if (index !== -1) {
+      return array.splice(array.indexOf(item), 1);
+   }
+   return [];
 };
 
 /**
@@ -3409,7 +3417,7 @@ Surface.prototype._noSmooth = function() {
    this.canvas.style.setProperty("-ms-interpolation-mode", "nearest-neighbor", "important");
    return;
 };
-
+/** @ignore */
 Surface.prototype._smooth = function() {
    this.canvas.style.setProperty("image-rendering", "optimizeQuality", "important");
    this.canvas.style.setProperty("-ms-interpolation-mode", "bicubic", "important");
