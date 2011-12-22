@@ -85,6 +85,9 @@ function main() {
 			   (event.key === gamejs.event.K_DOWN)) {
 			   student.stop();
 		      }
+		      if (event.key === gamejs.event.K_d) {
+			   student.toggleDebug(); //any sprite will do
+		      }
 		  };
 		  if (event.type === gamejs.event.MOUSE_DOWN) {
 		      console.log("mose down at (" + event.pos[0] + ", " + event.pos[1] + ")");

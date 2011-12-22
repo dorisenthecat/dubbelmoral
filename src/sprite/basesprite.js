@@ -25,5 +25,7 @@ BaseSprite.prototype.draw = function(surface) {
     //	this is a good place to keep track of how many Sprites we are
     //	rendering every frame
 };
-
+BaseSprite.prototype.toggleDebug = function() {
+    BaseSprite.prototype.DEBUG_SPRITE_RECT = !BaseSprite.prototype.DEBUG_SPRITE_RECT;
+};
 BaseSprite.prototype.DEBUG_SPRITE_RECT = false;
