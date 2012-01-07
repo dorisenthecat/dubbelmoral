@@ -49,6 +49,14 @@ gamejs.preload(["images/student/student_fall_2.png"]);
 gamejs.preload(["images/student/student_land_1.png"]);
 gamejs.preload(["images/student/student_climb_1.png"]);
 gamejs.preload(["images/student/student_climb_2.png"]);
+gamejs.preload(["images/student/student_run_left_1.png"]);
+gamejs.preload(["images/student/student_run_left_2.png"]);
+gamejs.preload(["images/student/student_run_left_3.png"]);
+gamejs.preload(["images/student/student_run_left_4.png"]);
+gamejs.preload(["images/student/student_run_right_1.png"]);
+gamejs.preload(["images/student/student_run_right_2.png"]);
+gamejs.preload(["images/student/student_run_right_3.png"]);
+gamejs.preload(["images/student/student_run_right_4.png"]);
 
 var Student = exports.Student = function() {
     Student.superConstructor.apply(this, arguments);
@@ -86,10 +94,10 @@ var Student = exports.Student = function() {
 	 {
 	     direction: "left",
 	     frames: [
-		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -7},
-		  {ticks: 2, image: "images/student/student_walk_left_1.png", vx: -7},
-		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -7},
-		  {ticks: 2, image: "images/student/student_walk_left_2.png", vx: -7}
+		  {ticks: 3, image: "images/student/student_walk_left_1.png", vx: -7},
+		  {ticks: 3, image: "images/student/student_stand_left.png", vx: -7},
+		  {ticks: 3, image: "images/student/student_walk_left_2.png", vx: -7},
+		  {ticks: 3, image: "images/student/student_stand_left.png", vx: -7},
 	     ],
 	     begin: function(cursor) { 
 	     		self.walking = true; 
@@ -104,10 +112,14 @@ var Student = exports.Student = function() {
 	 {
 	     direction: "right",
 	     frames: [
-		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 14},
-		  {ticks: 2, image: "images/student/student_walk_right_1.png", vx: 14},
-		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 14},
-		  {ticks: 2, image: "images/student/student_walk_right_2.png", vx: 14}
+		  {ticks: 2, image: "images/student/student_run_right_1.png", vx: 7},
+		  {ticks: 1, image: "images/student/student_run_right_2.png", vx: 5},
+		  {ticks: 1, image: "images/student/student_stand_right.png", vx: 5},
+		  {ticks: 1, image: "images/student/student_run_right_3.png", vx: 5},
+		  {ticks: 2, image: "images/student/student_run_right_4.png", vx: 7},
+		  {ticks: 1, image: "images/student/student_run_right_3.png", vx: 5},
+		  {ticks: 1, image: "images/student/student_run_right_2.png", vx: 5},
+		  {ticks: 1, image: "images/student/student_stand_right.png", vx: 5},
 	     ],
 	     begin: function(cursor) {
 	     	self.running = true;
@@ -125,10 +137,14 @@ var Student = exports.Student = function() {
 	 {
 	     direction: "left",
 	     frames: [
-		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -14},
-		  {ticks: 2, image: "images/student/student_walk_left_1.png", vx: -14},
-		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -14},
-		  {ticks: 2, image: "images/student/student_walk_left_2.png", vx: -14}
+		  {ticks: 2, image: "images/student/student_run_left_1.png", vx: -7},
+		  {ticks: 1, image: "images/student/student_run_left_2.png", vx: -5},
+		  {ticks: 1, image: "images/student/student_stand_left.png", vx: -5},
+		  {ticks: 1, image: "images/student/student_run_left_3.png", vx: -5},
+		  {ticks: 2, image: "images/student/student_run_left_4.png", vx: -7},
+		  {ticks: 1, image: "images/student/student_run_left_3.png", vx: -5},
+		  {ticks: 1, image: "images/student/student_run_left_2.png", vx: -5},
+		  {ticks: 1, image: "images/student/student_stand_left.png", vx: -5},
 	     ],
 	     begin: function(cursor) { 
 	     	self.running = true; 
@@ -146,10 +162,10 @@ var Student = exports.Student = function() {
 	 {
 	     direction: "right",
 	     frames: [
-		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 7},
-		  {ticks: 2, image: "images/student/student_walk_right_1.png", vx: 7},
-		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 7},
-		  {ticks: 2, image: "images/student/student_walk_right_2.png", vx: 7}
+		  {ticks: 3, image: "images/student/student_walk_right_1.png", vx: 7},
+		  {ticks: 3, image: "images/student/student_stand_right.png", vx: 7},
+		  {ticks: 3, image: "images/student/student_walk_right_2.png", vx: 7},
+		  {ticks: 3, image: "images/student/student_stand_right.png", vx: 7},
 	     ],
 	     begin: function(cursor) { self.walking = true; self.akwardMovement(); },
 	     end: function(cursor) { self.walking = false; },
@@ -209,15 +225,15 @@ var Student = exports.Student = function() {
 	 {
 	     direction: "left",
 	     frames: [
-		  {ticks: 1, image: "images/student/student_drink_left_1.png"},
-		  {ticks: 1, image: "images/student/student_drink_left_2.png"},
-		  {ticks: 1, image: "images/student/student_drink_left_3.png"},
-		  {ticks: 1, image: "images/student/student_drink_left_4.png"},
-		  {ticks: 1, image: "images/student/student_drink_left_5.png"},
-		  {ticks: 1, image: "images/student/student_drink_left_6.png"},
-		  {ticks: 1, image: "images/student/student_drink_left_7.png"},
-		  {ticks: 1, image: "images/student/student_drink_left_8.png"},
-		  {ticks: 1, image: "images/student/student_drink_left_9.png"}
+		  {ticks: 2, image: "images/student/student_drink_left_1.png"},
+		  {ticks: 2, image: "images/student/student_drink_left_2.png"},
+		  {ticks: 2, image: "images/student/student_drink_left_3.png"},
+		  {ticks: 2, image: "images/student/student_drink_left_4.png"},
+		  {ticks: 2, image: "images/student/student_drink_left_5.png"},
+		  {ticks: 2, image: "images/student/student_drink_left_6.png"},
+		  {ticks: 2, image: "images/student/student_drink_left_7.png"},
+		  {ticks: 2, image: "images/student/student_drink_left_8.png"},
+		  {ticks: 2, image: "images/student/student_drink_left_9.png"}
 	     ],
 	     begin: function(cursor) { self.drinking = true; self.busy = true;},
 	     end: function(cursor) {
@@ -236,15 +252,15 @@ var Student = exports.Student = function() {
 	 {
 	     direction: "right",
 	     frames: [
-		  {ticks: 1, image: "images/student/student_drink_right_1.png"},
-		  {ticks: 1, image: "images/student/student_drink_right_2.png"},
-		  {ticks: 1, image: "images/student/student_drink_right_3.png"},
-		  {ticks: 1, image: "images/student/student_drink_right_4.png"},
-		  {ticks: 1, image: "images/student/student_drink_right_5.png"},
-		  {ticks: 1, image: "images/student/student_drink_right_6.png"},
-		  {ticks: 1, image: "images/student/student_drink_right_7.png"},
-		  {ticks: 1, image: "images/student/student_drink_right_8.png"},
-		  {ticks: 1, image: "images/student/student_drink_right_9.png"}
+		  {ticks: 2, image: "images/student/student_drink_right_1.png"},
+		  {ticks: 2, image: "images/student/student_drink_right_2.png"},
+		  {ticks: 2, image: "images/student/student_drink_right_3.png"},
+		  {ticks: 2, image: "images/student/student_drink_right_4.png"},
+		  {ticks: 2, image: "images/student/student_drink_right_5.png"},
+		  {ticks: 2, image: "images/student/student_drink_right_6.png"},
+		  {ticks: 2, image: "images/student/student_drink_right_7.png"},
+		  {ticks: 2, image: "images/student/student_drink_right_8.png"},
+		  {ticks: 2, image: "images/student/student_drink_right_9.png"}
 	     ],
 	     begin: function(cursor) { self.drinking = true; self.busy = true; },
 	     end: function(cursor) { self.drinking = false; self.busy = false; self.score.drunkness += 10; self.score.badScore += 5; self.standIdle(); },
@@ -256,8 +272,8 @@ var Student = exports.Student = function() {
 	 {
 	     direction: "left",
 	     frames: [
-		  {ticks: 4, image: "images/student/student_trip_left_1.png", vx: -7},
-		  {ticks: 4, image: "images/student/student_trip_left_2.png", vx: -7}
+		  {ticks: 8, image: "images/student/student_trip_left_1.png", vx: -7},
+		  {ticks: 10, image: "images/student/student_trip_left_2.png", vx: -7}
 	     ],
 	     begin: function(cursor) { self.tripping = true; self.busy = true; },
 	     end: function(cursor) { self.tripping = false; self.busy = false; self.score.damage += 10; self.standIdle(); },
@@ -268,8 +284,8 @@ var Student = exports.Student = function() {
 	 {
 	     direction: "right",
 	     frames: [
-		  {ticks: 4, image: "images/student/student_trip_right_1.png", vx: 7},
-		  {ticks: 4, image: "images/student/student_trip_right_2.png", vx: 7}
+		  {ticks: 8, image: "images/student/student_trip_right_1.png", vx: 7},
+		  {ticks: 10, image: "images/student/student_trip_right_2.png", vx: 7}
 	     ],
 	     begin: function(cursor) { self.tripping = true; self.busy = true; },
 	     end: function(cursor) { self.tripping = false; self.busy = false; self.score.damage += 10; self.standIdle(); },
@@ -442,7 +458,7 @@ Student.prototype.soberUp = function() {
 	if (this.score.drunkness < 0) {
 		this.score.drunkness = 0;
 	}
-	this.soberCounter = (this.soberCounter +1 ) % 20;
+	this.soberCounter = (this.soberCounter +1 ) % 40;
 };
 
 Student.prototype.update = function(msduration, context) {

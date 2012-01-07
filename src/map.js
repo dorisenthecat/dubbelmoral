@@ -28,7 +28,7 @@ var Map = exports.Map = function() {
     
     var crossAnimation = new animation.Animation();
     var frame = new animation.AnimationFrame();
-    frame.ticks = 5;
+    frame.ticks = 10;
     frame.begin = function (map) {
       map.showCross = !map.showCross; 
     };

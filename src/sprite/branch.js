@@ -14,9 +14,10 @@ var Branch = exports.Branch = function(rect, dropArea) {
     var fallAnimation = new spriteanimation.SpriteAnimation(
       {
         frames: [
-          {ticks: 1, image: "images/branch/branch_right_1.png", vy: 12},
-          {ticks: 1, image: "images/branch/branch_right_2.png", vy: 12},
-          {ticks: 1, image: "images/branch/branch_right_3.png", vy: 12}
+          {ticks: 2, image: "images/branch/branch_right_1.png", vy: 12},
+          {ticks: 2, image: "images/branch/branch_right_2.png", vy: 12},
+          {ticks: 2, image: "images/branch/branch_right_3.png", vy: 12},
+		  {ticks: 2, image: "images/branch/branch_right_2.png", vy: 12}
         ]
       }
     );

@@ -122,7 +122,7 @@ function main() {
 	 currentRoom.draw(display);
     };
 
-    gamejs.time.fpsCallback(tick, this, 10);
+    gamejs.time.fpsCallback(tick, this, 20);
 	function switchToRoom(index) {
 		var nextRoom = rooms[index];
 		if (nextRoom !== currentRoom) {
