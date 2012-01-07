@@ -7,7 +7,9 @@ var Ladder = exports.Ladder = function (rect) {
 	return this;
 };
 
-Ladder.prototype.update = function(msduration) {
-  
-};
 gamejs.utils.objects.extend(Ladder, basesprite.BaseSprite);
+
+Ladder.prototype.placeInRoom = function(room) {
+    room.drawables.add(this);
+    room.ladders.add(this);
+};

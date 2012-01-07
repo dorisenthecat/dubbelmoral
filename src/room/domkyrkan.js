@@ -1,5 +1,6 @@
 var gamejs = require('gamejs');
 var room = require('./room');
+var Ladder = require("../sprite/ladder").Ladder;
 
 var Lotsofbeer = require("../sprite/lotsofbeer").Lotsofbeer;
 
@@ -17,6 +18,10 @@ gamejs.utils.objects.extend(Domkyrkan, room.Room);
 
 Domkyrkan.prototype.init = function() {
     Domkyrkan.superClass.init.apply(this, arguments);
+
     var beerBunch = new Lotsofbeer(new gamejs.Rect([280, 175, 130, 10]));
     beerBunch.placeInRoom(this);
+
+    var tree = new Ladder(new gamejs.Rect([47,88], [12,95]));
+    tree.placeInRoom(this);
 };
