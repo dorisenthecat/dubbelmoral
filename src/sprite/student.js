@@ -72,6 +72,7 @@ var Student = exports.Student = function() {
 
     this.shouldActivate = false;
 
+    this.animations = {};
     var self = this;
 
     var walkLeftAnimation = new animatedsprite.SpriteAnimation(
@@ -82,6 +83,36 @@ var Student = exports.Student = function() {
 		  {ticks: 2, image: "images/student/student_walk_left_1.png", vx: -7},
 		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -7},
 		  {ticks: 2, image: "images/student/student_walk_left_2.png", vx: -7}
+	     ],
+	     begin: function(cursor) { self.walking = true; },
+	     end : function(cursor) { self.walking = false; },
+	     interrupt: function(cursor) { self.walking = false; }
+	 }
+    );
+    
+    var runRightAnimation = new animatedsprite.SpriteAnimation(
+	 {
+	     direction: "right",
+	     frames: [
+		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 14},
+		  {ticks: 2, image: "images/student/student_walk_right_1.png", vx: 14},
+		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 14},
+		  {ticks: 2, image: "images/student/student_walk_right_2.png", vx: 14}
+	     ],
+	     begin: function(cursor) { self.walking = true; },
+	     end: function(cursor) { self.walking = false; },
+	     interrupt: function(cursor) { self.walking = false; }
+	 }
+    );
+
+    var runLeftAnimation = new animatedsprite.SpriteAnimation(
+	 {
+	     direction: "left",
+	     frames: [
+		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -14},
+		  {ticks: 2, image: "images/student/student_walk_left_1.png", vx: -14},
+		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -14},
+		  {ticks: 2, image: "images/student/student_walk_left_2.png", vx: -14}
 	     ],
 	     begin: function(cursor) { self.walking = true; },
 	     end : function(cursor) { self.walking = false; },
@@ -167,7 +198,7 @@ var Student = exports.Student = function() {
 		  {ticks: 1, image: "images/student/student_drink_left_9.png"}
 	     ],
 	     begin: function(cursor) { self.drinking = true; self.busy = true;},
-	     end: function(cursor) { self.drinking = false; self.busy = false; self.score.drunkness += 10; self.score.badScore += 5;},
+	     end: function(cursor) { self.drinking = false; self.busy = false; self.score.drunkness += 10; self.score.badScore += 5; self.standIdle(); },
 	     interrupt: function(cursor) { self.drinking = false; self.busy = false; }
 	 }
     );
@@ -187,7 +218,7 @@ var Student = exports.Student = function() {
 		  {ticks: 1, image: "images/student/student_drink_right_9.png"}
 	     ],
 	     begin: function(cursor) { self.drinking = true; self.busy = true; },
-	     end: function(cursor) { self.drinking = false; self.busy = false; self.score.drunkness += 10; self.score.badScore += 5;},
+	     end: function(cursor) { self.drinking = false; self.busy = false; self.score.drunkness += 10; self.score.badScore += 5; self.standIdle(); },
 	     interrupt: function(cursor) { self.drinking = false; self.busy = false; }
 	 }
     );
@@ -197,11 +228,10 @@ var Student = exports.Student = function() {
 	     direction: "left",
 	     frames: [
 		  {ticks: 4, image: "images/student/student_trip_left_1.png", vx: -7},
-		  {ticks: 4, image: "images/student/student_trip_left_2.png", vx: -7},
-		  {ticks: 1, image: "images/student/student_stand_left.png"}
+		  {ticks: 4, image: "images/student/student_trip_left_2.png", vx: -7}
 	     ],
 	     begin: function(cursor) { self.tripping = true; self.busy = true; },
-	     end: function(cursor) { self.tripping = false; self.busy = false; self.score.damage += 10; },
+	     end: function(cursor) { self.tripping = false; self.busy = false; self.score.damage += 10; self.standIdle(); },
 	     interrupt: function(cursor) { self.tripping = false; self.busy = false; }
 	 });
     
@@ -210,11 +240,10 @@ var Student = exports.Student = function() {
 	     direction: "right",
 	     frames: [
 		  {ticks: 4, image: "images/student/student_trip_right_1.png", vx: 7},
-		  {ticks: 4, image: "images/student/student_trip_right_2.png", vx: 7},
-		  {ticks: 1, image: "images/student/student_stand_right.png"}
+		  {ticks: 4, image: "images/student/student_trip_right_2.png", vx: 7}
 	     ],
 	     begin: function(cursor) { self.tripping = true; self.busy = true; },
-	     end: function(cursor) { self.tripping = false; self.busy = false; self.score.damage += 10; },
+	     end: function(cursor) { self.tripping = false; self.busy = false; self.score.damage += 10; self.standIdle(); },
 	     interrupt: function(cursor) { self.tripping = false; self.busy = false; }
 	 });
 
@@ -235,27 +264,74 @@ var Student = exports.Student = function() {
 		  {ticks: 4, image: "images/student/student_land_1.png"}
 	     ],
 	     begin: function(cursor) { self.landing = true; self.busy = true; self.score.damage += 30; },
-	     end: function(cursor) { self.landing = false; self.busy = false; },
+	     end: function(cursor) { self.landing = false; self.busy = false; self.standIdle(); },
 	     interrupt: function(cursor) { self.landing = false; self.busy = false; }
+	 });
+    this.animations.climbUpAnimation = new animatedsprite.SpriteAnimation(
+	 {
+	     frames: [
+		  {ticks: 4, image: "images/student/student_climb_1.png", vy: -4},
+		  {ticks: 4, image: "images/student/student_climb_2.png", vy: -4}
+	     ],
+	     begin: function(cursor) { self.climbing = true; },
+	     end: function(cursor) { self.climbing = false; },
+	     interrupt: function(cursor) { self.climbing = false; }
+	 });
+    this.animations.climbDownAnimation = new animatedsprite.SpriteAnimation(
+	 {
+	     frames: [
+		  {ticks: 4, image: "images/student/student_climb_1.png", vy: 4},
+		  {ticks: 4, image: "images/student/student_climb_2.png", vy: 4}
+	     ],
+	     begin: function(cursor) { self.climbing = true; },
+	     end: function(cursor) { self.climbing = false; },
+	     interrupt: function(cursor) { self.climbing = false; }
+	 });
+    this.animations.climbIdleAnimation = new animatedsprite.SpriteAnimation(
+	 {
+	     frames: [
+		  {ticks: 4, ximage: "images/student/student_climb_1.png", vy: 0},
+		  {ticks: 4, ximage: "images/student/student_climb_2.png", vy: 0}
+	     ],
+	     begin: function(cursor) { self.climbing = true; },
+	     end: function(cursor) { self.climbing = false; },
+	     interrupt: function(cursor) { self.climbing = false; }
 	 });
     
     this.startAnimation(standRightAnimation, true);
 
-    this.left = function() {
+    this.walk = function(dir) {
 	 if (!this.busy) {
-	     this.startAnimation(walkLeftAnimation, true);
+	     if (dir === animatedsprite.DIR_LEFT) {
+		  this.startAnimation(walkLeftAnimation, true);
+	     } else if (dir === animatedsprite.DIR_RIGHT) {
+		  this.startAnimation(walkRightAnimation, true);
+	     }
 	 }
     };
-    this.right = function() {
+    this.run = function(dir) {
 	 if (!this.busy) {
-	     this.startAnimation(walkRightAnimation, true);
+	     if (dir === animatedsprite.DIR_LEFT) {
+		  this.startAnimation(runLeftAnimation, true);
+	     } else if (dir === animatedsprite.DIR_RIGHT) {
+		  this.startAnimation(runRightAnimation, true);
+	     }
 	 }
     };
-    this.stop = function() {
-	 if (this.direction === animatedsprite.DIR_LEFT) {
-	     this.startAnimation(standLeftAnimation, false);
+    this.climb = function(dir) {
+	 if (!this.busy) {
+	     this.climbing = true;
+	     this.climbdirection = dir;
+	 }
+    };
+    this.standIdle = function() {
+	 this.climbdirection = "";
+	 if (this.climbing) {
+	     this.startAnimation(this.animations.climbIdleAnimation, true);
+	 } else if (this.direction === animatedsprite.DIR_LEFT) {
+	     this.startAnimation(standLeftAnimation, true);
 	 } else {
-	     this.startAnimation(standRightAnimation, false);
+	     this.startAnimation(standRightAnimation, true);
 	 }
     };
     this.duck = function() {
@@ -269,7 +345,7 @@ var Student = exports.Student = function() {
     };
     this.activate = function() {
 	 if (!this.busy) {
-	     this.stop();
+	     this.standIdle();
 	     this.shouldActivate = true;
 	 }
     };
@@ -281,7 +357,7 @@ var Student = exports.Student = function() {
 	 }
     };
     this.hit = function() {
-	 this.stop();
+	 this.standIdle();
 	 if (this.position[1] > 3 && (this.jumping || this.climbing)) {
 	     this.fall();
 	 } else {
@@ -306,17 +382,6 @@ var Student = exports.Student = function() {
 	 this.updateRect();
 	 this.startAnimation(landAnimation, false);
     };
-    this.up = function() {
-	 this.shouldClimbUp = true;
-    };
-    this.down = function() {
-	 if (!this.climbing || this.position[1] === Room.prototype.FLOOR_LEVEL) {
-	     this.duck();
-	 } else if (this.climbing) {
-	     //climb down if possible
-	     this.shouldclimbDown = true;
-	 }
-    };
 
     this.updateRect();
 
@@ -324,13 +389,28 @@ var Student = exports.Student = function() {
 };
 gamejs.utils.objects.extend(Student, animatedsprite.AnimatedSprite);
 
-Student.prototype.update = function(msduration, context) {
-    Student.superClass.update.apply(this, arguments);
-    //fysik och knappar och drit
-    
+Student.prototype.isOnLadder = function(room) {
     var self = this;
-    
-    this.climbing = false;
+    return room.ladders.some(function (ladder) {
+				     return ladder.rect.collidePoint(self.position);
+				 });
+};
+
+Student.prototype.update = function(msduration, context) {
+    var self = this;
+
+    if (this.climbing) {
+	 if (!this.isOnLadder(context.room)) {
+	     this.climbing = false;
+	 } else if (this.climbdirection === animatedsprite.DIR_UP) {
+	     this.startAnimation(this.animations.climbUpAnimation, true);
+	 } else if (this.climbdirection === animatedsprite.DIR_DOWN) {
+	     this.startAnimation(this.animations.climbDownAnimation, true);
+	 } else {
+	     this.startAnimation(this.animations.climbIdleAnimation, true);
+	 }
+    };
+
     if (!this.climbing) {
 	 if (this.position[1] < Room.prototype.FLOOR_LEVEL || this.falling) {
 	     if (!context.room.platforms.sprites().some(
@@ -360,12 +440,10 @@ Student.prototype.update = function(msduration, context) {
 		  });
 	 }
     }
-    
-    this.shouldClimbUp = false;
-    this.shouldClimbDown = false;
-
-
     this.shouldActivate = false;
+
+    Student.superClass.update.apply(this, arguments);
+
     self.updateRect();
 };
 

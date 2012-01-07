@@ -11,6 +11,8 @@ var Map = require("./map").Map;
 var animation = require("./animation");
 var Student = require("./sprite/student").Student;
 
+var spriteanimation = require("./sprite/animatedsprite");
+
 /*
  * Game
  * 
@@ -65,26 +67,37 @@ function main() {
 	     function(event) {
 		  if (event.type === gamejs.event.KEY_DOWN) {
 		      if (event.key === gamejs.event.K_UP) {
-			   
+			   student.climb(spriteanimation.DIR_UP);
 		      }
 		      if (event.key === gamejs.event.K_LEFT) {
-			   student.left();
+			   student.walk(spriteanimation.DIR_LEFT);
 		      }
 		      if (event.key === gamejs.event.K_RIGHT) {
-			   student.right();
+			   student.walk(spriteanimation.DIR_RIGHT);
 		      }
 		      if (event.key === gamejs.event.K_SPACE) {
 			   student.activate();
 		      }
 		      if (event.key === gamejs.event.K_DOWN) {
-			   student.duck();
+//			   student.duck();
+			   student.climb(spriteanimation.DIR_DOWN);
+		      }
+		      if (event.key === gamejs.event.K_KP4) {
+			   student.run(spriteanimation.DIR_LEFT);
+		      }
+		      if (event.key === gamejs.event.K_KP6) {
+			   student.run(spriteanimation.DIR_RIGHT);
 		      }
 		  }
 		  if (event.type === gamejs.event.KEY_UP) {
 		      if ((event.key === gamejs.event.K_LEFT) ||
 			   (event.key === gamejs.event.K_RIGHT) ||
-			   (event.key === gamejs.event.K_DOWN)) {
-			   student.stop();
+			   (event.key === gamejs.event.K_UP) ||
+			   (event.key === gamejs.event.K_DOWN) ||
+			   (event.key === gamejs.event.K_KP4) ||
+			   (event.key === gamejs.event.K_KP6)
+			  ) {
+			   student.standIdle();
 		      }
 		      if (event.key === gamejs.event.K_d) {
 			   student.toggleDebug(); //any sprite will do

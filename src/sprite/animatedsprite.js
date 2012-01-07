@@ -79,7 +79,9 @@ var SpriteAnimationFrame = exports.SpriteAnimationFrame = function() {
 gamejs.utils.objects.extend(SpriteAnimationFrame, animation.AnimationFrame);
 
 SpriteAnimationFrame.prototype.begin = function(sprite) {
-    sprite.image = this.image;
+    if (this.image) {
+	 sprite.image = this.image;
+    }
     sprite.vx += this.vx;
     sprite.vy += this.vy;
     if (this.beginEx) {
