@@ -166,9 +166,9 @@ var Student = exports.Student = function() {
 		  {ticks: 1, image: "images/student/student_drink_left_8.png"},
 		  {ticks: 1, image: "images/student/student_drink_left_9.png"}
 	     ],
-	     begin: function(cursor) { self.drinking = true; },
-	     end: function(cursor) { self.drinking = false; self.score.drunkness += 10; self.score.badScore += 5;},
-	     interrupt: function(cursor) { self.drinking = false; }
+	     begin: function(cursor) { self.drinking = true; self.busy = true;},
+	     end: function(cursor) { self.drinking = false; self.busy = false; self.score.drunkness += 10; self.score.badScore += 5;},
+	     interrupt: function(cursor) { self.drinking = false; self.busy = false; }
 	 }
     );
 
@@ -186,9 +186,9 @@ var Student = exports.Student = function() {
 		  {ticks: 1, image: "images/student/student_drink_right_8.png"},
 		  {ticks: 1, image: "images/student/student_drink_right_9.png"}
 	     ],
-	     begin: function(cursor) { self.drinking = true; },
-	     end: function(cursor) { self.drinking = false; self.score.drunkness += 10; self.score.badScore += 5;},
-	     interrupt: function(cursor) { self.drinking = false; }
+	     begin: function(cursor) { self.drinking = true; self.busy = true; },
+	     end: function(cursor) { self.drinking = false; self.busy = false; self.score.drunkness += 10; self.score.badScore += 5;},
+	     interrupt: function(cursor) { self.drinking = false; self.busy = false; }
 	 }
     );
 
@@ -268,10 +268,10 @@ var Student = exports.Student = function() {
 	 }
     };
     this.activate = function() {
-//	 if (this.idle) {
+	 if (!this.busy) {
 	     this.stop();
 	     this.shouldActivate = true;
-	 //}
+	 }
     };
     this.drink = function() {
 	 if (this.direction === animatedsprite.DIR_LEFT) {
