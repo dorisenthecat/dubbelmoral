@@ -1,15 +1,11 @@
 var gamejs = require("gamejs");
 
-var roomtest = require("tests/roomtest").run;
-var studenttest = require("tests/studenttest").run;
-var animationtest = require("tests/animationtest").run;
+QUnit.stop();
 
-function runtests() {
-    animationtest();
-    roomtest();
-    studenttest();
-}
+require("tests/animationtest").run;
+require("tests/roomtest").run;
+require("tests/studenttest").run;
 
 gamejs.ready(function() {
-    runtests();
+    QUnit.start();
 });

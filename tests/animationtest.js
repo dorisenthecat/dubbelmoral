@@ -1,10 +1,8 @@
 var animation = require("../src/animation");
 
-exports.run = function() {
-    qModule("animation");
+qModule("animation");
 
-    test("isAnimationFinished", function() {
-	 //is this method correct if called from end() of the last
-	 //frame?? I don't think so..
-    });
-};
+test("isAnimationFinished", function() {
+    //is this method correct if called from end() of the last
+    //frame?? I don't think so..
+});
