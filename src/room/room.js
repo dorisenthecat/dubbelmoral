@@ -32,6 +32,7 @@ var Room = exports.Room = function() {
     this.platforms = new gamejs.sprite.Group();
     this.activateables = this.activatables = new gamejs.sprite.Group();
     this.portalwalkers = new gamejs.sprite.Group();
+    this.solids = new gamejs.sprite.Group();
     return this;
 };
 
@@ -57,6 +58,7 @@ Room.prototype.init = function() {
     this.platforms.empty();
     this.activateables.empty();
     this.portalwalkers.empty();
+    this.solids.empty();
     
     portal.createPortals(this);    
 };
