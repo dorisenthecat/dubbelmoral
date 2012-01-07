@@ -12,11 +12,13 @@ var BaseSprite = require("./basesprite").BaseSprite;
 
 var DIR_LEFT = exports.DIR_LEFT = "left";
 var DIR_RIGHT = exports.DIR_RIGHT = "right";
+var DIR_UP = exports.DIR_UP = "up";
+var DIR_DOWN = exports.DIR_DOWN = "down";
 
 
-var SpriteAnimation = exports.SpriteAnimation = function(defintion) {
+var SpriteAnimation = exports.SpriteAnimation = function(definition) {
     SpriteAnimation.superConstructor.apply(this, arguments);
-    var frames = defintion.frames || [];
+    var frames = definition.frames || [];
     
     for (var i = 0; i < frames.length; i++) {
 	 var framedef = frames[i];
@@ -36,11 +38,28 @@ var SpriteAnimation = exports.SpriteAnimation = function(defintion) {
 	 this.frames.push(frame);
     }
     
-    this.direction = defintion.direction = defintion.direction || DIR_RIGHT;
+    if (definition.interrupt) {
+	 this.interrupt = definition.interrupt;
+    }
+    if (definition.begin) {
+	 if (this.frames.length > 0) {
+	     this.frames[0].beginEx = definition.begin;
+	 }
+    }
+    if (definition.end) {
+	 if (this.frames.length > 0) {
+	     this.frames[this.frames.length-1].endEx = definition.end;
+	 }
+    }
+    this.direction = definition.direction = definition.direction || DIR_RIGHT;
     
     return this;
 };
 gamejs.utils.objects.extend(SpriteAnimation, animation.Animation);
+
+SpriteAnimation.prototype.interrupt = function(cursor) {
+    
+};
 
 SpriteAnimation.prototype.start = function() {
     var sprite = SpriteAnimation.superClass.start.apply(this, arguments);
@@ -63,6 +82,15 @@ SpriteAnimationFrame.prototype.begin = function(sprite) {
     sprite.image = this.image;
     sprite.vx += this.vx;
     sprite.vy += this.vy;
+    if (this.beginEx) {
+	 this.beginEx.apply(this, arguments);
+    }
+};
+
+SpriteAnimationFrame.prototype.end = function(sprite) {
+    if (this.endEx) {
+	 this.endEx.apply(this, arguments);
+    }
 };
 
 var AnimatedSprite = exports.AnimatedSprite = function(pos) {
@@ -115,6 +143,9 @@ AnimatedSprite.prototype.update = function(msduration) {
 AnimatedSprite.prototype.startAnimation = function(animation, loop) {
     //    if (animation.loop
     if (this.runningAnimation !== animation) {
+	 if (this.runningAnimation && !this.runningAnimation.isAnimationFinished) {
+	     this.runningAnimation.interrupt();
+	 }
 	 this.runningAnimation = animation;
 	 var self = this;
 	 animation.start(this, function(sprite) {

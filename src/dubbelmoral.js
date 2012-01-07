@@ -45,7 +45,7 @@ function main() {
     var mapDisplay = gamejs.display.setMode([148,298], "map");
     var hemmaDisplay = gamejs.display.setMode([326, 64], "hemma");
     
-	var student = new Student([240, Room.prototype.FLOOR_LEVEL]);
+	var student = new Student([265, Room.prototype.FLOOR_LEVEL]);
     context.student = student;
 
 	var rooms = [];
