@@ -105,7 +105,7 @@ function main() {
 	 student.update(msduration, context);
 	 
 	 hemmaDisplay.blit(gamejs.image.load("images/hemma.png"));
-	 map.draw(mapDisplay);
+	 map.draw(mapDisplay, student.score);
 	 currentRoom.draw(display);
     };
 

@@ -1,6 +1,7 @@
 var gamejs = require("gamejs");
 var animatedsprite = require("./animatedsprite");
 var Room = require("../room/room").Room;
+var Score = require("../score").Score;
 
 /*
  * Student
@@ -51,6 +52,8 @@ var Student = exports.Student = function() {
     Student.superConstructor.apply(this, arguments);
 
 //    this.shouldMoveSprite = false;
+
+    this.score = new Score();
     
     //state variables
     this.falling = false;
