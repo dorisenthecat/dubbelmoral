@@ -316,7 +316,7 @@ var Student = exports.Student = function() {
     var landAnimation = new animatedsprite.SpriteAnimation(
 	 {
 	     frames: [
-		  {ticks: 4, image: "images/student/student_land_1.png"}
+		  {ticks: 8, image: "images/student/student_land_1.png"}
 	     ],
 	     begin: function(cursor) { self.landing = true; self.busy = true; self.score.damage += 30; },
 	     end: function(cursor) { self.landing = false; self.busy = false; self.standIdle(); },

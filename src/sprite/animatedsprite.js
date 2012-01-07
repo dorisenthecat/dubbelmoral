@@ -35,6 +35,12 @@ var SpriteAnimation = exports.SpriteAnimation = function(definition) {
 	 if (framedef.ticks) {
 	     frame.ticks = framedef.ticks;
 	 }
+	 if (framedef.begin) {
+		frame.begin = framedef.begin;
+	 }
+	 if (framedef.end) {
+		frame.end = framedef.end;
+	 }
 	 this.frames.push(frame);
     }
     
