@@ -1,5 +1,6 @@
 var gamejs = require("gamejs");
 var animatedsprite = require("./animatedsprite");
+var Room = require("../room/room").Room;
 
 /*
  * Student
@@ -222,8 +223,8 @@ var Student = exports.Student = function() {
 //	 }
     };
     this.fall = function() {
-	 if (this.position[1] >= 185-2) { // TODO: change this to floor level of room
-	     this.land(185-2);
+	 if (this.position[1] >= Room.prototype.FLOOR_LEVEL) { // TODO: change this to floor level of room
+	     this.land(Room.prototype.FLOOR_LEVEL);
 	 } else {
 	     this.falling = true;
 	     this.startAnimation(fallAnimation, true);
@@ -250,7 +251,7 @@ Student.prototype.update = function(msduration, context) {
     
     this.climbing = false;
     if (!this.climbing) {
-	 if (this.position[1] < 185-2 || this.falling) {
+	 if (this.position[1] < Room.prototype.FLOOR_LEVEL || this.falling) {
 	     if (!context.room.platforms.sprites().some(
 		  function (platform) {
 		      if (platform.rect.collideLine(self.position, [self.old_x, self.old_y])) {
@@ -269,7 +270,6 @@ Student.prototype.update = function(msduration, context) {
     if (this.shouldActivate) {
 	 if (context && context.room) {
 	     var done = false;
-	     var self = this;
 	     gamejs.sprite.spriteCollide(this, context.room.activateables, false).forEach(
 		  function (activatable) {
 		      if (done) return;
@@ -282,4 +282,10 @@ Student.prototype.update = function(msduration, context) {
 
     this.shouldActivate = false;
     self.updateRect();
+};
+
+Student.prototype.placeInRoom = function(room) {
+    //update is called from main updateLoop
+    room.drawables.add(this);
+    room.portalwalkers.add(this);
 };

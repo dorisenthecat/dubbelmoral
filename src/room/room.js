@@ -60,3 +60,5 @@ Room.prototype.init = function() {
     
     portal.createPortals(this);    
 };
+
+Room.prototype.FLOOR_LEVEL = 185-2;

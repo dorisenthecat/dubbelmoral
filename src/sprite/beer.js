@@ -13,10 +13,6 @@ var Beer = exports.Beer = function () {
 	return this;
 };
 
-Beer.prototype.update = function(msduration) {
-  
-};
-
 gamejs.utils.objects.extend(Beer, basesprite.BaseSprite);
 
 Beer.prototype.activateMe = function(context) {

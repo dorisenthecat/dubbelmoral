@@ -1,5 +1,6 @@
 var gamejs = require('gamejs');
 
+var Room = require("./room/room").Room;
 var nilen = require('./room/nilen');
 var fontanen = require('./room/fontanen');
 var akademiska = require('./room/akademiska');
@@ -44,7 +45,7 @@ function main() {
     var mapDisplay = gamejs.display.setMode([148,298], "map");
     var hemmaDisplay = gamejs.display.setMode([326, 64], "hemma");
     
-	var student = new Student([240,28]);
+	var student = new Student([240, Room.prototype.FLOOR_LEVEL]);
     context.student = student;
 
 	var rooms = [];
@@ -57,7 +58,7 @@ function main() {
     var currentRoom;
     var map = new Map();
 
-	switchToRoom(2);
+	switchToRoom(0);
 
     var handleEvents = function(events) {
 	 events.forEach(
@@ -114,8 +115,7 @@ function main() {
 		if (nextRoom !== currentRoom) {
 			currentRoom = nextRoom;
 			nextRoom.init();
-			nextRoom.drawables.add(student);
-  		       nextRoom.portalwalkers.add(student);
+		       student.placeInRoom(nextRoom);
 		    context.room = nextRoom;
 		}
 	};

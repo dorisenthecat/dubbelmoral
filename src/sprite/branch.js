@@ -53,4 +53,4 @@ Branch.prototype.drop = function() {
   this.rect.bottom = 0;
   this.updatePosition();
   this.hitStudent = false;
-}
+};

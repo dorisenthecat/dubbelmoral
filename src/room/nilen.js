@@ -25,13 +25,10 @@ Nilen.prototype.init = function() {
     Nilen.superClass.init.apply(this, arguments);
     
     var b = new branch.Branch([100,50], [0,295]);
-    
-    this.drawables.add(b);
-    this.updateables.add(b);
-    
+    b.placeInRoom(this);
+
     var u = new urinal.Urinal(new gamejs.Rect([113,164,10,20]));
-    this.drawables.add(u);
-    this.activateables.add(u);
+    u.placeInRoom(this);
 
     //Add beer bottles
     var numberOfBeer = Math.floor(Math.random()*MAX_BOTTLES+1);
@@ -43,9 +40,7 @@ Nilen.prototype.init = function() {
       bottle.rect.top = Math.floor(gamejs.display.getSurface().getSize()[1] - bottle.rect.height - GROUND_HEIGHT);
       
       //TODO: Check if a bottle already exists in this position
-      
-      this.drawables.add(bottle);
-      this.activateables.add(bottle);
+      bottle.placeInRoom(this);
     }
     
     //Add ladder to the tree
