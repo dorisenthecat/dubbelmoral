@@ -75,6 +75,13 @@ var Student = exports.Student = function() {
     this.animations = {};
     var self = this;
 
+	this.akwardMovement = function () {
+		var factor = self.running ? 2: 1;
+		if(Math.random() < (self.score.drunkness - 50) / 50 * factor) {
+     		self.hit();
+     	}
+	}
+
     var walkLeftAnimation = new animatedsprite.SpriteAnimation(
 	 {
 	     direction: "left",
@@ -84,7 +91,10 @@ var Student = exports.Student = function() {
 		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -7},
 		  {ticks: 2, image: "images/student/student_walk_left_2.png", vx: -7}
 	     ],
-	     begin: function(cursor) { self.walking = true; },
+	     begin: function(cursor) { 
+	     		self.walking = true; 
+	     		self.akwardMovement();
+	     	},
 	     end : function(cursor) { self.walking = false; },
 	     interrupt: function(cursor) { self.walking = false; }
 	 }
@@ -99,9 +109,15 @@ var Student = exports.Student = function() {
 		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 14},
 		  {ticks: 2, image: "images/student/student_walk_right_2.png", vx: 14}
 	     ],
-	     begin: function(cursor) { self.walking = true; },
-	     end: function(cursor) { self.walking = false; },
-	     interrupt: function(cursor) { self.walking = false; }
+	     begin: function(cursor) {
+	     	self.running = true;
+	     	self.akwardMovement();
+	     	if(self.score.drunkness > 15) {
+	     		self.score.peeiness += 2;
+	    	}
+	     },
+	     end: function(cursor) { self.running = false; },
+	     interrupt: function(cursor) { self.running = false; }
 	 }
     );
 
@@ -114,9 +130,15 @@ var Student = exports.Student = function() {
 		  {ticks: 2, image: "images/student/student_stand_left.png", vx: -14},
 		  {ticks: 2, image: "images/student/student_walk_left_2.png", vx: -14}
 	     ],
-	     begin: function(cursor) { self.walking = true; },
-	     end : function(cursor) { self.walking = false; },
-	     interrupt: function(cursor) { self.walking = false; }
+	     begin: function(cursor) { 
+	     	self.running = true; 
+	     	self.akwardMovement();
+	     	if(self.score.drunkness > 15) {
+	     		self.score.peeiness += 2;
+	     	}
+	     },
+	     end : function(cursor) { self.running = false; },
+	     interrupt: function(cursor) { self.running = false; }
 	 }
     );
     
@@ -129,7 +151,7 @@ var Student = exports.Student = function() {
 		  {ticks: 2, image: "images/student/student_stand_right.png", vx: 7},
 		  {ticks: 2, image: "images/student/student_walk_right_2.png", vx: 7}
 	     ],
-	     begin: function(cursor) { self.walking = true; },
+	     begin: function(cursor) { self.walking = true; self.akwardMovement(); },
 	     end: function(cursor) { self.walking = false; },
 	     interrupt: function(cursor) { self.walking = false; }
 	 }
@@ -198,7 +220,14 @@ var Student = exports.Student = function() {
 		  {ticks: 1, image: "images/student/student_drink_left_9.png"}
 	     ],
 	     begin: function(cursor) { self.drinking = true; self.busy = true;},
-	     end: function(cursor) { self.drinking = false; self.busy = false; self.score.drunkness += 10; self.score.badScore += 5; self.standIdle(); },
+	     end: function(cursor) {
+	     		self.drinking = false;
+	     		self.busy = false;
+	     		self.score.drunkness += 10;
+	     		self.score.peeiness += 2;
+	     		self.score.badScore += 15;
+	     		self.standIdle();
+	     	},
 	     interrupt: function(cursor) { self.drinking = false; self.busy = false; }
 	 }
     );
@@ -325,14 +354,16 @@ var Student = exports.Student = function() {
 	 }
     };
     this.standIdle = function() {
-	 this.climbdirection = "";
-	 if (this.climbing) {
-	     this.startAnimation(this.animations.climbIdleAnimation, true);
-	 } else if (this.direction === animatedsprite.DIR_LEFT) {
-	     this.startAnimation(standLeftAnimation, true);
-	 } else {
-	     this.startAnimation(standRightAnimation, true);
-	 }
+    	if (!this.busy) {
+		 this.climbdirection = "";
+		 if (this.climbing) {
+		     this.startAnimation(this.animations.climbIdleAnimation, true);
+		 } else if (this.direction === animatedsprite.DIR_LEFT) {
+		     this.startAnimation(standLeftAnimation, true);
+		 } else {
+		     this.startAnimation(standRightAnimation, true);
+		 }
+		}
     };
     this.duck = function() {
 	 if (!this.busy) {
@@ -396,8 +427,28 @@ Student.prototype.isOnLadder = function(room) {
 				 });
 };
 
+Student.prototype.soberUp = function() {
+	if (!this.soberCounter) {
+		this.soberCounter = 0;
+	}
+	if (this.soberCounter === 0) {
+		if (this.score.drunkness > 0) {
+			this.score.drunkness -= 2;
+			this.score.badScore += 1;
+			this.score.peeiness += 1;
+		}
+	}
+	
+	if (this.score.drunkness < 0) {
+		this.score.drunkness = 0;
+	}
+	this.soberCounter = (this.soberCounter +1 ) % 20;
+};
+
 Student.prototype.update = function(msduration, context) {
     var self = this;
+
+	this.soberUp();
 
     if (this.climbing) {
 	 if (!this.isOnLadder(context.room)) {
