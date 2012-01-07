@@ -16,7 +16,7 @@ var Branch = exports.Branch = function(rect, dropArea) {
         frames: [
           {ticks: 1, image: "images/branch/branch_right_1.png", vy: 12},
           {ticks: 1, image: "images/branch/branch_right_2.png", vy: 12},
-          {ticks: 1, image: "images/branch/branch_right_3.png", vy: 12},   
+          {ticks: 1, image: "images/branch/branch_right_3.png", vy: 12}
         ]
       }
     );
@@ -39,6 +39,7 @@ Branch.prototype.update = function(msduration, context) {
     if (!this.hitStudent && gamejs.sprite.collideRect(this, context.student)) {
        this.hitStudent = true;
        context.student.hit.apply(context.student);
+	 context.student.score.damage += 10;
     }
 
     if(this.rect.top > 185) {

@@ -167,7 +167,7 @@ var Student = exports.Student = function() {
 		  {ticks: 1, image: "images/student/student_drink_left_9.png"}
 	     ],
 	     begin: function(cursor) { self.drinking = true; },
-	     end: function(cursor) { self.drinking = false; },
+	     end: function(cursor) { self.drinking = false; self.score.drunkness += 10; self.score.badScore += 5;},
 	     interrupt: function(cursor) { self.drinking = false; }
 	 }
     );
@@ -187,7 +187,7 @@ var Student = exports.Student = function() {
 		  {ticks: 1, image: "images/student/student_drink_right_9.png"}
 	     ],
 	     begin: function(cursor) { self.drinking = true; },
-	     end: function(cursor) { self.drinking = false; },
+	     end: function(cursor) { self.drinking = false; self.score.drunkness += 10; self.score.badScore += 5;},
 	     interrupt: function(cursor) { self.drinking = false; }
 	 }
     );
@@ -201,7 +201,7 @@ var Student = exports.Student = function() {
 		  {ticks: 1, image: "images/student/student_stand_left.png"}
 	     ],
 	     begin: function(cursor) { self.tripping = true; self.busy = true; },
-	     end: function(cursor) { self.tripping = false; self.busy = false; },
+	     end: function(cursor) { self.tripping = false; self.busy = false; self.score.damage += 10; },
 	     interrupt: function(cursor) { self.tripping = false; self.busy = false; }
 	 });
     
@@ -214,7 +214,7 @@ var Student = exports.Student = function() {
 		  {ticks: 1, image: "images/student/student_stand_right.png"}
 	     ],
 	     begin: function(cursor) { self.tripping = true; self.busy = true; },
-	     end: function(cursor) { self.tripping = false; self.busy = false; },
+	     end: function(cursor) { self.tripping = false; self.busy = false; self.score.damage += 10; },
 	     interrupt: function(cursor) { self.tripping = false; self.busy = false; }
 	 });
 
@@ -234,7 +234,7 @@ var Student = exports.Student = function() {
 	     frames: [
 		  {ticks: 4, image: "images/student/student_land_1.png"}
 	     ],
-	     begin: function(cursor) { self.landing = true; self.busy = true; },
+	     begin: function(cursor) { self.landing = true; self.busy = true; self.score.damage += 30; },
 	     end: function(cursor) { self.landing = false; self.busy = false; },
 	     interrupt: function(cursor) { self.landing = false; self.busy = false; }
 	 });
@@ -268,10 +268,10 @@ var Student = exports.Student = function() {
 	 }
     };
     this.activate = function() {
-	 if (this.idle) {
+//	 if (this.idle) {
 	     this.stop();
 	     this.shouldActivate = true;
-	 }
+	 //}
     };
     this.drink = function() {
 	 if (this.direction === animatedsprite.DIR_LEFT) {
