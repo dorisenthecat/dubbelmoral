@@ -60,6 +60,12 @@ Map.prototype.draw = function(surface, score) {
     gamejs.draw.rect(surface, "#ffffff",  this.getScoreRect(50, 190, score.peeiness));
     gamejs.draw.rect(surface, "#ffffff",  this.getScoreRect(50, 203, score.damage));
     
+    //TODO: Arial is not perfect, find better font if possible
+    var arial =  new gamejs.font.Font("12px Arial");
+    surface.blit(arial.render(score.goodScore + score.badScore, "#000000"), [67,230]);
+    surface.blit(arial.render(score.badScore, "#000000"), [37,270]);
+    surface.blit(arial.render(score.goodScore, "#000000"), [104,270]);
+    
 };
 
 Map.prototype.update = function(msduration, currentRoom) {
