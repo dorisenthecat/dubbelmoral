@@ -57,6 +57,10 @@ gamejs.preload(["images/student/student_run_right_1.png"]);
 gamejs.preload(["images/student/student_run_right_2.png"]);
 gamejs.preload(["images/student/student_run_right_3.png"]);
 gamejs.preload(["images/student/student_run_right_4.png"]);
+gamejs.preload(["images/student/student_pee_1.png"]);
+gamejs.preload(["images/student/student_pee_2.png"]);
+gamejs.preload(["images/student/student_pee_3.png"]);
+gamejs.preload(["images/student/student_pee_done.png"]);
 
 var Student = exports.Student = function() {
     Student.superConstructor.apply(this, arguments);
@@ -335,14 +339,68 @@ var Student = exports.Student = function() {
     this.animations.climbIdleAnimation = new animatedsprite.SpriteAnimation(
 	 {
 	     frames: [
-		  {ticks: 4, ximage: "images/student/student_climb_1.png", vy: 0},
-		  {ticks: 4, ximage: "images/student/student_climb_2.png", vy: 0}
+		  {ticks: 4, vy: 0},
+		  {ticks: 4, vy: 0}
 	     ],
 	     begin: function(cursor) { self.climbing = true; },
 	     end: function(cursor) { self.climbing = false; },
 	     interrupt: function(cursor) { self.climbing = false; }
 	 });
     
+	this.animations.peeStart = new animatedsprite.SpriteAnimation(
+	 {
+		frames: [
+			{ticks: 2, image: "images/student/student_pee_1.png"}
+		],
+		begin: function(cursor) {
+			self.busy = true;
+			self.peeing = true;
+		},
+		end: function(cursor) {
+			self.startAnimation(self.animations.peePouring, true);
+		},
+		interrupt: function(cursor) {
+		}
+	});
+	this.animations.peePouring = new animatedsprite.SpriteAnimation(
+	 {
+		frames: [
+			{ticks: 2, image: "images/student/student_pee_2.png"},
+			{ticks: 2, image: "images/student/student_pee_3.png"}
+		],
+		begin: function(cursor) {
+		},
+		end: function(cursor) {
+			self.score.peeiness -= 2;
+			if (self.score.peeiness <= 0) {
+				self.score.peeiness = 0;
+				self.peeing = false;
+			}
+			if (!self.peeing) {
+				self.startAnimation(self.animations.peeShake, false);
+			}
+		},
+		interrrupt: function(cursor) {
+		}
+	});
+	this.animations.peeShake = new animatedsprite.SpriteAnimation(
+	 {
+		frames: [
+			{ticks: 2, image: "images/student/student_pee_done.png"},
+			{ticks: 2, image: "images/student/student_stand_left.png"},
+			{ticks: 2, image: "images/student/student_pee_done.png"}
+		],
+		begin: function(cursor) {
+		},
+		end: function(cursor) {
+			self.busy = false;
+			self.standIdle();
+		},
+		interrrupt: function(cursor) {
+			self.busy = false;
+		}
+	});
+
     this.startAnimation(standRightAnimation, true);
 
     this.walk = function(dir) {
@@ -379,6 +437,8 @@ var Student = exports.Student = function() {
 		 } else {
 		     this.startAnimation(standRightAnimation, true);
 		 }
+		} else if (this.peeing) {
+			this.peeing = false;
 		}
     };
     this.duck = function() {
@@ -403,6 +463,9 @@ var Student = exports.Student = function() {
 	     this.startAnimation(drinkRightAnimation, false);
 	 }
     };
+	this.pee = function() {
+		this.startAnimation(self.animations.peeStart, false);
+	};
     this.hit = function() {
 	 this.standIdle();
 	 if (this.position[1] > 3 && (this.jumping || this.climbing)) {

@@ -51,7 +51,7 @@ var SpriteAnimation = exports.SpriteAnimation = function(definition) {
 	     this.frames[this.frames.length-1].endEx = definition.end;
 	 }
     }
-    this.direction = definition.direction = definition.direction || DIR_RIGHT;
+    this.direction = definition.direction;
     
     return this;
 };
@@ -63,7 +63,9 @@ SpriteAnimation.prototype.interrupt = function(cursor) {
 
 SpriteAnimation.prototype.start = function() {
     var sprite = SpriteAnimation.superClass.start.apply(this, arguments);
-    sprite.direction = this.direction;
+	if (this.direction) {
+		sprite.direction = this.direction;
+	}
 };
 
 var SpriteAnimationFrame = exports.SpriteAnimationFrame = function() {

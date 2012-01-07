@@ -95,7 +95,8 @@ function main() {
 			   (event.key === gamejs.event.K_UP) ||
 			   (event.key === gamejs.event.K_DOWN) ||
 			   (event.key === gamejs.event.K_KP4) ||
-			   (event.key === gamejs.event.K_KP6)
+			   (event.key === gamejs.event.K_KP6) ||
+			   (event.key === gamejs.event.K_SPACE)
 			  ) {
 			   student.standIdle();
 		      }
