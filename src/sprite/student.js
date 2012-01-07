@@ -1,6 +1,7 @@
 var gamejs = require("gamejs");
 var animatedsprite = require("./animatedsprite");
 var Room = require("../room/room").Room;
+var Score = require("../score").Score;
 
 /*
  * Student
@@ -51,6 +52,8 @@ gamejs.preload(["images/student/student_climb_2.png"]);
 
 var Student = exports.Student = function() {
     Student.superConstructor.apply(this, arguments);
+
+    this.score = new Score();
 
     //state variables
     this.busy = false;
