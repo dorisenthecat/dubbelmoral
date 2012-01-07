@@ -245,7 +245,7 @@ var Student = exports.Student = function() {
 		  {ticks: 2, image: "images/student/student_drink_left_8.png"},
 		  {ticks: 2, image: "images/student/student_drink_left_9.png"}
 	     ],
-	     begin: function(cursor) { self.drinking = true; self.busy = true;},
+	     begin: function(cursor) { self.drinking = true; self.busy = true; },
 	     end: function(cursor) {
 	     		self.drinking = false;
 	     		self.busy = false;
@@ -273,7 +273,13 @@ var Student = exports.Student = function() {
 		  {ticks: 2, image: "images/student/student_drink_right_9.png"}
 	     ],
 	     begin: function(cursor) { self.drinking = true; self.busy = true; },
-	     end: function(cursor) { self.drinking = false; self.busy = false; self.score.drunkness += 10; self.score.badScore += 5; self.standIdle(); },
+	     end: function(cursor) {
+		  self.drinking = false; 
+		  self.busy = false; 
+		  self.score.drunkness += 10; 
+		  self.score.peeiness += 2;
+		  self.score.badScore += 15; 
+		  self.standIdle(); },
 	     interrupt: function(cursor) { self.drinking = false; self.busy = false; }
 	 }
     );
@@ -642,7 +648,6 @@ Student.prototype.update = function(msduration, context) {
 };
 
 Student.prototype.placeInRoom = function(room) {
-    //update is called from main updateLoop
     room.drawables.add(this);
     room.portalwalkers.add(this);
 };

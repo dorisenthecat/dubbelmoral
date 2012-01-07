@@ -39,7 +39,7 @@ var Room = exports.Room = function() {
 Room.prototype.draw = function(surface) {
     if (this.backgroundImage) {
 	 surface.blit(this.backgroundImage);
-    } else {
+    } else if (surface) {
 	 surface.fill("purple");
     }
     this.drawables.draw.apply(this.drawables, arguments);
