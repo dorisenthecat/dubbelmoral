@@ -17,8 +17,8 @@ gamejs.utils.objects.extend(Urinal, BaseSprite);
 Urinal.prototype.activateMe = function(context) {
     //TODO check distance, direction u.s.w.
     
-	if (context.student.score.drunkness > 70 && context.student.vommit) {
-		context.student.vommit.apply(context.student);
+	if (context.student.score.drunkness > 70) {
+		context.student.vomit.apply(context.student);
 	} else if (context.student.score.peeiness > 0 && context.student.pee) {
 		context.student.pee.apply(context.student);
 	}

@@ -61,6 +61,12 @@ gamejs.preload(["images/student/student_pee_1.png"]);
 gamejs.preload(["images/student/student_pee_2.png"]);
 gamejs.preload(["images/student/student_pee_3.png"]);
 gamejs.preload(["images/student/student_pee_done.png"]);
+gamejs.preload(["images/student/student_vomit_left_1.png"]);
+gamejs.preload(["images/student/student_vomit_left_2.png"]);
+gamejs.preload(["images/student/student_vomit_left_3.png"]);
+gamejs.preload(["images/student/student_vomit_left_4.png"]);
+gamejs.preload(["images/student/student_vomit_left_5.png"]);
+gamejs.preload(["images/student/student_vomit_left_6.png"]);
 
 var Student = exports.Student = function() {
     Student.superConstructor.apply(this, arguments);
@@ -80,7 +86,7 @@ var Student = exports.Student = function() {
 
     this.running = false;
 
-    this.vommiting = false;
+    this.vomiting = false;
 
     this.shouldActivate = false;
 
@@ -401,6 +407,61 @@ var Student = exports.Student = function() {
 		}
 	});
 
+	this.animations.vomitStart = new animatedsprite.SpriteAnimation(
+	 {
+		frames: [
+			{ticks: 2, image: "images/student/student_vomit_left_1.png"}
+		],
+		begin: function(cursor) {
+			self.busy = true;
+			self.vomiting = true;
+		},
+		end: function(cursor) {
+			self.startAnimation(self.animations.vomiting, true);
+		},
+		interrupt: function(cursor) {
+		}
+	});
+	this.animations.vomiting = new animatedsprite.SpriteAnimation(
+	 {
+		frames: [
+			{ticks: 2, image: "images/student/student_vomit_left_2.png"},
+			{ticks: 2, image: "images/student/student_vomit_left_3.png"},
+			{ticks: 2, image: "images/student/student_vomit_left_4.png"},
+			{ticks: 2, image: "images/student/student_vomit_left_5.png"},
+			{ticks: 2, image: "images/student/student_vomit_left_6.png"}
+		],
+		begin: function(cursor) {
+			self.score.drunkness -= 10;
+			if (self.score.drunkness <= 0) {
+				self.score.drunkness = 0;
+				self.vomiting = false;
+			}
+		},
+		end: function(cursor) {
+			if (!self.vomiting) {
+				self.startAnimation(self.animations.vomitingDone, false);
+			}
+		},
+		interrrupt: function(cursor) {
+		}
+	});
+	this.animations.vomitingDone = new animatedsprite.SpriteAnimation(
+	 {
+		frames: [
+			{ticks: 2, image: "images/student/student_vomit_left_1.png"}
+		],
+		begin: function(cursor) {
+		},
+		end: function(cursor) {
+			self.busy = false;
+			self.standIdle();
+		},
+		interrrupt: function(cursor) {
+			self.busy = false;
+		}
+	});
+
     this.startAnimation(standRightAnimation, true);
 
     this.walk = function(dir) {
@@ -465,6 +526,9 @@ var Student = exports.Student = function() {
     };
 	this.pee = function() {
 		this.startAnimation(self.animations.peeStart, false);
+	};
+	this.vomit = function() {
+		this.startAnimation(self.animations.vomitStart, false);
 	};
     this.hit = function() {
 	 this.standIdle();
