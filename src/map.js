@@ -64,7 +64,7 @@ Map.prototype.draw = function(surface, score) {
     
     //TODO: How to hanlde overflow?
     var badBarLength = Math.ceil(score.badScore * 0.11);
-    gamejs.draw.rect(surface, "#ffcccc",  new gamejs.Rect([5 + SCORE_BAR_WIDTH - badBarLength, 255], [badBarLength, SCORE_BAR_HEIGHT]));´
+    gamejs.draw.rect(surface, "#ffcccc",  new gamejs.Rect([5 + SCORE_BAR_WIDTH - badBarLength, 255], [badBarLength, SCORE_BAR_HEIGHT]));
     var goodBarLength = Math.ceil(score.goodScore * 0.11);
     gamejs.draw.rect(surface, "#00ccff",  new gamejs.Rect([75, 255], [goodBarLength, SCORE_BAR_HEIGHT]));
     
