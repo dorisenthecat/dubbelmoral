@@ -18,6 +18,8 @@ gamejs.preload(["images/roomposition.png"]);
 
 var SCORE_METER_WIDTH = 95;
 var SCORE_METER_HEIGHT = 7;
+var SCORE_BAR_HEIGHT = 13;
+var SCORE_BAR_WIDTH = 68;
 
 var Map = exports.Map = function() {
     this.image = gamejs.image.load("images/map.png");
@@ -59,6 +61,12 @@ Map.prototype.draw = function(surface, score) {
     gamejs.draw.rect(surface, "#ffffff",  this.getScoreRect(50, 177, score.drunkness));
     gamejs.draw.rect(surface, "#ffffff",  this.getScoreRect(50, 190, score.peeiness));
     gamejs.draw.rect(surface, "#ffffff",  this.getScoreRect(50, 203, score.damage));
+    
+    //TODO: How to hanlde overflow?
+    var badBarLength = Math.ceil(score.badScore * 0.11);
+    gamejs.draw.rect(surface, "#ffcccc",  new gamejs.Rect([5 + SCORE_BAR_WIDTH - badBarLength, 255], [badBarLength, SCORE_BAR_HEIGHT]));´
+    var goodBarLength = Math.ceil(score.goodScore * 0.11);
+    gamejs.draw.rect(surface, "#00ccff",  new gamejs.Rect([75, 255], [goodBarLength, SCORE_BAR_HEIGHT]));
     
     //TODO: Arial is not perfect, find better font if possible
     var arial =  new gamejs.font.Font("12px Arial");
