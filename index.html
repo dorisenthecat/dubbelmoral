@@ -58,16 +58,17 @@
            Loading...
       </div>
              
-      <div class="window" style="height: 307px" id="map-window" onclick="activateWindow('map');" draggable="false">
+      <div class="window" style="height: 307px; top: 40px; left: 20px;" id="map-window" onclick="activateWindow('map');" draggable="false">
         <div onmousedown="startDragWindow('map', event);"  class="window-frame"></div>
         <canvas id="map" draggable="false"></canvas>
       </div>
       
-      <div class="window" style="height: 193px" id="main-window" onclick="activateWindow('main');" draggable="false">
+      <div class="window" style="height: 193px; top: 40px; left: 183px;" id="main-window" onclick="activateWindow('main');" draggable="false">
         <div onmousedown="startDragWindow('main', event);" class="window-frame"></div>
-        <canvas id="gjs-canvas" draggable="false"></canvas></div>
+        <canvas id="gjs-canvas" draggable="false"></canvas>
+      </div>
       
-      <div class="window" style="height: 72px" id="hemma-window" onclick="activateWindow('hemma');" draggable="false">
+      <div class="window" style="height: 72px; top: 274px; left: 183px;" id="hemma-window" onclick="activateWindow('hemma');" draggable="false">
         <div onmousedown="startDragWindow('hemma', event);" class="window-frame"></div>
         <canvas id="hemma" draggable="false"></canvas>
       </div>
