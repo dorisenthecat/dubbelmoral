@@ -1,6 +1,7 @@
 var gamejs = require('gamejs');
 var room = require('./room');
 var Ladder = require("../sprite/ladder").Ladder;
+var Police = require("../sprite/police").Police;
 
 var Lotsofbeer = require("../sprite/lotsofbeer").Lotsofbeer;
 
@@ -24,4 +25,7 @@ Domkyrkan.prototype.init = function() {
 
     var tree = new Ladder(new gamejs.Rect([47,88], [12,95]));
     tree.placeInRoom(this);
+    
+    var police = new Police([82, this.FLOOR_LEVEL], 16, 126);
+    police.placeInRoom(this);
 };
