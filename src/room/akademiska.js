@@ -3,6 +3,7 @@ var room = require('./room');
 var Platform = require('../sprite/platform').Platform;
 var Ladder = require("../sprite/ladder").Ladder;
 var Drunk = require("../sprite/drunk").Drunk;
+var Mummy = require("../sprite/mummy").Mummy;
 var beer = require("../sprite/beer");
 
 gamejs.preload(["images/akademiska.png"]);
@@ -12,7 +13,7 @@ var Akademiska = exports.Akademiska = function() {
 
     this.backgroundImage = gamejs.image.load("images/akademiska.png"); // todo: load once, not per object
     this.positionOnMap = [125, 62];
-
+    this.mummyPresent = false;
     return this;
 };
 gamejs.utils.objects.extend(Akademiska, room.Room);
@@ -43,4 +44,22 @@ Akademiska.prototype.init = function() {
       bottle.rect.bottom = bottle_bottom;
       bottle.placeInRoom(this);
     }
+    
+    this.mummyPresent = false;
 };
+
+Akademiska.prototype.update = function(msDuration, context) {
+	Akademiska.superClass.update.apply(this, arguments);
+  
+  //Student is on balcony
+  if(context.student.rect.collideRect(new gamejs.Rect([235,48], [65,32]))
+      && !this.mummyPresent) {
+      
+      //Spawn mummy on balcony if unlucky
+      if(Math.random() > 0.995) {
+        var mummy = new Mummy([265, 78], 240, 290);
+        mummy.placeInRoom(this); 
+        this.mummyPresent = true;
+      }
+  }
+}

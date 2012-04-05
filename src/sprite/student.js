@@ -616,9 +616,6 @@ Student.prototype.update = function(msduration, context) {
 	     if (!context.room.platforms.sprites().some(
 		  function (platform) {
 		      if (platform.rect.collideLine(self.position, [self.old_x, self.old_y])) {
-			   if (self.falling) {
-				self.land(platform.rect.top);
-			   }
 			   return true;
 		      }
 		      return false;
